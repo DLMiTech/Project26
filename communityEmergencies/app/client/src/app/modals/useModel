@@ -1,0 +1,336 @@
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, TouchableOpacity, Image} from "react-native";
+import {router} from "expo-router";
+import RemixIcon from "react-native-remix-icon";
+import {COLOR, TEXT} from "../../utils/theme";
+import DLMInput from "../../components/DLMInput";
+import Copyright from "../../components/copyright";
+import Toast from "react-native-toast-message";
+import {moderateScale, verticalScale, normalize,} from "../../utils/scale";
+import DLMButton from "../../components/DLMButton";
+import FullScreenLoader from "../../components/fullScreenLoader";
+import DLMOTPInput from "../../components/DLMOTPInput";
+import {useToast} from "../../components/ToastProvider";
+
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+
+const ForgotPassword = () => {
+    const [step, setStep] = useState("email");
+    const [loading, setLoading] = useState(false);
+    const { showToast } = useToast();
+
+    const [email, setEmail] = useState("");
+    const [otpCode, setOtpCode] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    const submitForgotPassword = async () => {
+        if (email === "") {
+            showToast({
+                type: "error",
+                message: "Enter email to reset password.",
+            });
+            return;
+        }
+
+        setLoading(true);
+        await delay(2000);
+
+        try {
+            // call API here
+            const status = 200; // simulate
+
+            if (status === 200) {
+                setStep("verify");
+            }
+
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const submitVerification = async () => {
+        if (otpCode.length < 4) {
+            showToast({
+                type: "error",
+                message: "Enter the complete verification code.",
+            });
+            return;
+        }
+        setLoading(true);
+        await delay(2000);
+
+        try {
+            const status = 200;
+
+            if (status === 200) {
+                setStep("reset");
+            }
+
+        }catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const submitResetPassword = async () => {
+        if (password === "") {
+            showToast({
+                type: "error",
+                message: "Enter password to reset password.",
+            });
+            return;
+        }
+        setLoading(true);
+        await delay(2000);
+
+        try {
+            const status = 200;
+
+            if (status === 200) {
+                Toast.show({
+                    type: 'success',
+                    text1: 'Success',
+                    text2: 'Password reset successful',
+                });
+
+                router.back();
+            }
+
+        }catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    };
+    return (
+        <View style={styles.overlay}>
+            <View style={styles.modal}>
+
+                {loading && (
+                    <FullScreenLoader text="Submiting data, please wait..." />
+                )}
+
+                <View style={styles.wrapper}>
+                    {/* TOP + FORM */}
+                    <View>
+                        <TouchableOpacity
+                            onPress={() => {
+                                if (router.canGoBack()) {
+                                    router.back();
+                                } else {
+                                    router.push("/");
+                                }
+                            }} style={styles.backButton}>
+                            <RemixIcon name={`arrow-left-long-line`} size={22} color="#595959"/>
+                        </TouchableOpacity>
+
+
+                        {step === "email" && (
+                            <View style={styles.middle}>
+                                <View style={styles.top}>
+                                    <Image
+                                        source={require('../../../assets/auth-icon/sign-in.png')}
+                                        style={styles.image}
+                                        resizeMode="contain"
+                                    />
+                                </View>
+
+
+                                <View style={styles.formInfo}>
+                                    <Text style={[TEXT.Title, { textAlign: "center" }]}>
+                                        Forgot Password?
+                                    </Text>
+                                    <Text style={[TEXT.Body, { textAlign: "center" }]}>
+                                        Enter your email and password to sign in to SchoolPal.
+                                    </Text>
+                                </View>
+
+                                <View style={styles.inputForm}>
+                                    <DLMInput
+                                        icon="mail-send-fill"
+                                        placeholder="Enter your email"
+                                        keyboardType="email-address"
+                                        maxLength={100}
+                                        value={email}
+                                        onChangeText={setEmail}
+                                    />
+
+                                    <DLMButton
+                                        title="Restore Password"
+                                        variant="solid"
+                                        disabled={loading}
+                                        onPress={submitForgotPassword}
+                                    />
+
+                                </View>
+                            </View>
+                        )}
+
+                        {step === "verify" && (
+                            <View style={styles.middle}>
+                                <View style={styles.top}>
+                                    <Image
+                                        source={require('../../../assets/auth-icon/sign-in.png')}
+                                        style={styles.image}
+                                        resizeMode="contain"
+                                    />
+                                </View>
+
+
+                                <View style={styles.formInfo}>
+                                    <Text style={[TEXT.Title, { textAlign: "center" }]}>
+                                        Account Verification
+                                    </Text>
+                                    <Text style={[TEXT.Body, { textAlign: "center" }]}>
+                                        Enter the OPT sent to your email to verify your account.
+                                    </Text>
+                                </View>
+
+                                <View style={styles.inputForm}>
+
+                                    <DLMOTPInput
+                                        length={4}
+                                        onComplete={(code) => {
+                                            console.log("OTP:", code);
+                                            setOtpCode(code);
+                                        }}
+                                    />
+
+                                    <DLMButton
+                                        title="Verify Account"
+                                        variant="solid"
+                                        disabled={loading}
+                                        onPress={submitVerification}
+                                    />
+
+                                </View>
+                            </View>
+                        )}
+
+                        {step === "reset" && (
+                            <View style={styles.middle}>
+                                <View style={styles.top}>
+                                    <Image
+                                        source={require('../../../assets/auth-icon/sign-in.png')}
+                                        style={styles.image}
+                                        resizeMode="contain"
+                                    />
+                                </View>
+
+
+                                <View style={styles.formInfo}>
+                                    <Text style={[TEXT.Title, { textAlign: "center" }]}>
+                                        Reset Password
+                                    </Text>
+                                    <Text style={[TEXT.Body, { textAlign: "center" }]}>
+                                        Enter a new password to reset your account.
+                                    </Text>
+                                </View>
+
+                                <View style={styles.inputForm}>
+
+                                    <DLMInput
+                                        icon="lock-2-fill"
+                                        placeholder="Enter new password"
+                                        secure={true}
+                                        keyboardType="password"
+                                        maxLength={100}
+                                        value={password}
+                                        onChangeText={setPassword}
+                                    />
+
+                                    <DLMButton
+                                        title="Reset Password"
+                                        variant="solid"
+                                        disabled={loading}
+                                        onPress={submitResetPassword}
+                                    />
+
+                                </View>
+                            </View>
+                        )}
+
+                    </View>
+
+                    {/* FOOTER */}
+                    <View style={styles.footer}>
+                        <Copyright />
+                    </View>
+
+                </View>
+            </View>
+        </View>
+    );
+};
+
+export default ForgotPassword;
+
+const styles = StyleSheet.create({
+    overlay: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0.5)",
+        justifyContent: "flex-end"
+    },
+
+    modal: {
+        backgroundColor: "#fff",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        minHeight: "90%",
+    },
+
+    backButton: {
+        position: "absolute",
+        top: verticalScale(15),
+        zIndex: 10,
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 100,
+        borderColor: COLOR.textLight,
+    },
+
+    wrapper: {
+        flex: 1,
+        paddingHorizontal: verticalScale(20),
+    },
+
+    top: {
+        justifyContent: "center",
+        alignItems: "center",
+    },
+
+    image: {
+        width: moderateScale(80),
+        height: moderateScale(80),
+        marginBottom: verticalScale(20),
+        marginTop: verticalScale(50),
+    },
+    middle: {
+        alignItems: "center",
+    },
+
+    formInfo: {
+        gap: moderateScale(10),
+        marginBottom: verticalScale(20),
+    },
+
+    inputForm: {
+        gap: moderateScale(20),
+        width: "100%",
+    },
+
+    footer: {
+        alignItems: "center",
+        justifyContent: "flex-end",
+        position: "absolute",
+        bottom: verticalScale(35),
+        left: 0,
+        right: 0,
+    },
+
+});

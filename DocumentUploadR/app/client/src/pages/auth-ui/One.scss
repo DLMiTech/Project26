@@ -1,0 +1,289 @@
+// modern-login.scss
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.modern-login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #111827, #1e3a8a);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 60px;
+  gap: 60px;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+
+.login-content {
+  flex: 1;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 80px;
+}
+
+.brand-icon {
+  width: 55px;
+  height: 55px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.brand h2 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.brand p {
+  margin: 0;
+  opacity: 0.7;
+}
+
+.badge-text {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 10px 18px;
+  border-radius: 40px;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 25px;
+}
+
+.hero-text h1 {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero-text p {
+  margin-top: 25px;
+  max-width: 520px;
+  opacity: 0.8;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* Features */
+
+.features {
+  margin-top: 70px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 30px;
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.feature-card i {
+  font-size: 32px;
+  margin-bottom: 18px;
+  display: block;
+}
+
+.feature-card h5 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* LOGIN CARD */
+
+.login-card {
+  width: 460px;
+  background: white;
+  border-radius: 32px;
+  padding: 45px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+}
+
+.card-top h2 {
+  font-size: 36px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.card-top p {
+  color: #6b7280;
+  margin-top: 10px;
+  margin-bottom: 35px;
+}
+
+/* INPUT */
+
+.auth-input-wrapper {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.auth-input-wrapper label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.auth-input {
+  height: 58px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  padding-left: 48px;
+  padding-right: 48px;
+  box-shadow: none !important;
+}
+
+.auth-input:focus {
+  border-color: #2563eb;
+}
+
+.left-icon {
+  position: absolute;
+  left: 18px;
+  top: 52px;
+  color: #9ca3af;
+  font-size: 18px;
+}
+
+.right-icon {
+  position: absolute;
+  right: 18px;
+  top: 52px;
+  color: #9ca3af;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* Forgot */
+
+.forgot-link {
+  text-decoration: none;
+  color: #2563eb;
+  font-size: 14px;
+}
+
+/* Remember */
+
+.remember-row {
+  margin-bottom: 25px;
+}
+
+/* BUTTON */
+
+.login-btn {
+  width: 100%;
+  height: 58px;
+  border: none;
+  border-radius: 16px;
+  background: #2563eb;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Divider */
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.divider span {
+  padding: 0 15px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* Social */
+
+.social-login {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.social-login button {
+  width: 55px;
+  height: 55px;
+  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  font-size: 22px;
+  transition: 0.3s;
+}
+
+.social-login button:hover {
+  transform: translateY(-3px);
+}
+
+/* Bottom */
+
+.bottom-text {
+  text-align: center;
+  margin-top: 35px;
+  color: #6b7280;
+}
+
+.bottom-text a {
+  text-decoration: none;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+/* Responsive */
+
+@media (max-width: 992px) {
+  .modern-login-page {
+    flex-direction: column;
+    padding: 30px;
+  }
+
+  .login-content {
+    text-align: center;
+  }
+
+  .hero-text h1 {
+    font-size: 42px;
+  }
+
+  .hero-text p {
+    margin: auto;
+    margin-top: 20px;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 500px;
+  }
+}

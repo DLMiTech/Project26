@@ -1,0 +1,152 @@
+
+.auth-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0ab39c, #405189);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.auth-wrapper {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* LEFT SIDE */
+.auth-left {
+  position: relative;
+  min-height: 500px;
+  background-image: linear-gradient(
+                  rgba(64, 81, 137, 0.82),
+                  rgba(64, 81, 137, 0.82)
+  ),
+  url("../../assets/img/ktu-img.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  color: white;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.quote-box {
+  position: absolute;
+  bottom: 70px;
+  left: 50px;
+  right: 50px;
+  text-align: center;
+}
+
+.quote-icon {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+}
+
+.quote-box p {
+  font-size: .9rem;
+  font-style: italic;
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+
+/* RIGHT SIDE */
+
+.auth-right {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+
+  .form-container {
+    width: 100%;
+
+    .header {
+      color: var(--primary-color);
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    .subtitle {
+      color: #878a99;
+      margin-top: .5rem;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+    }
+    .logo{
+      width: 4rem;
+    }
+
+
+    /* Divider */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: #878a99;
+      font-size: 14px;
+
+      &::before,
+      &::after {
+        content: "";
+        flex: 1;
+        border-bottom: 1px solid #dcdfe4;
+      }
+
+      span {
+        margin: 0 15px;
+      }
+    }
+
+    .auth-link {
+      color: #405189;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+  }
+}
+
+
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 25px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+
+@media (max-width: 991px) {
+  .auth-left {
+    min-height: 200px;
+    padding: 1rem 2rem;
+  }
+  .logo {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .quote-box {
+    position: absolute;
+    bottom: 10px;
+    left: 50px;
+    right: 50px;
+    text-align: center;
+  }
+
+  .quote-icon {
+    font-size: 2rem;
+  }
+}

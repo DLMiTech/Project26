@@ -1,0 +1,86 @@
+import employees from '../models/employee.json' with { type: "json" };
+import employeeModel from "../models/employeeModel.js";
+
+const data = {
+    employees: employees,
+    setEmployees: function (data) {this.employees = data},
+};
+
+
+const getAllEmployees = (req, res) => {
+    res.json({
+        status: 200,
+        data: data.employees
+    })
+}
+
+const createEmployee = (req, res) => {
+    const newEmployee = {
+        id: data.employees[data.employees.length - 1].id + 1 || 1,
+        name: req.body.name,
+        email: req.body.email,
+    }
+    if (!newEmployee.email || !newEmployee.email) {
+        return res.status(400).json({
+            status: 400,
+            message: 'Please enter a valid email address'
+        })
+    }
+
+    data.setEmployees([...data.employees, newEmployee]);
+    res.status(201).json({
+        status: 201,
+        data: data.employees
+    });
+}
+
+const updateEmployee = (req, res) => {
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
+    if (!employee) {
+        return res.status(400).json({
+            status: 400,
+            message: `Employee ID ${req.body.id} not found`
+        });
+    }
+    if (req.body.name) employee.name = req.body.name;
+    if (req.body.email) employee.email = req.body.email;
+    const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
+    const unsortedArray = [...filteredArray, employee];
+    data.setEmployees(unsortedArray.sort((a, b) => a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
+    res.status(200).json({
+        status: 200,
+        data: data.employees
+    });
+}
+
+const deleteEmployee = (req, res) => {
+    const employee = data.employees.find(emp => emp.id === parseInt(req.body.id));
+    if (!employee) {
+        return res.status(400).json({
+            status: 400,
+            message: `Employee ID ${req.body.id} not found`
+        });
+    }
+    const filteredArray = data.employees.filter(emp => emp.id !== parseInt(req.body.id));
+    data.setEmployees([...filteredArray]);
+    res.status(200).json({
+        status: 200,
+        data: data.employees
+    });
+}
+
+const getEmployee = (req, res) => {
+    const employee = data.employees.find(emp => emp.id === parseInt(req.params.id));
+    if (!employee) {
+        return res.status(400).json({
+            status: 400,
+            message: `Employee ID ${req.params.id} not found`
+        });
+    }
+    res.status(200).json({
+        status: 200,
+        data: employee
+    });
+}
+
+export default {getAllEmployees, createEmployee, updateEmployee, deleteEmployee, getEmployee}

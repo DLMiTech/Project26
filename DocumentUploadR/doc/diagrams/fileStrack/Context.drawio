@@ -1,0 +1,74 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.0 Safari/537.36" version="29.6.1">
+  <diagram name="Page-1" id="30JwwxjYu41hipge441_">
+    <mxGraphModel dx="1489" dy="894" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-114" edge="1" parent="1" source="QDdvLe-yMOPR3L4wx6hz-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" target="QDdvLe-yMOPR3L4wx6hz-105">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="825" y="680" />
+              <mxPoint x="342" y="680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-97" parent="1" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#60a917;fontColor=#ffffff;strokeColor=#2D7600;" value="&lt;font size=&quot;3&quot;&gt;&lt;b&gt;FILE STACK&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;b&gt;SYSTEM&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="150" x="750" y="419" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-116" edge="1" parent="1" source="QDdvLe-yMOPR3L4wx6hz-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="QDdvLe-yMOPR3L4wx6hz-97">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1304" y="290" />
+              <mxPoint x="825" y="290" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-117" edge="1" parent="1" source="QDdvLe-yMOPR3L4wx6hz-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" target="QDdvLe-yMOPR3L4wx6hz-97">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1304" y="620" />
+              <mxPoint x="878" y="620" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-102" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" value="&lt;font size=&quot;3&quot;&gt;&lt;b&gt;System Administrator&amp;nbsp;&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="168" x="1220" y="445" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-112" edge="1" parent="1" source="QDdvLe-yMOPR3L4wx6hz-105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;strokeWidth=2;" target="QDdvLe-yMOPR3L4wx6hz-97">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="384" y="320" />
+              <mxPoint x="772" y="320" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-113" edge="1" parent="1" source="QDdvLe-yMOPR3L4wx6hz-105" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;" target="QDdvLe-yMOPR3L4wx6hz-97">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="426" y="630" />
+              <mxPoint x="772" y="630" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-105" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1ba1e2;fontColor=#ffffff;strokeColor=#006EAF;" value="&lt;font size=&quot;3&quot;&gt;&lt;b&gt;End User&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="168" x="300" y="464" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-106" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;File management (Delete, Resize, Cope)&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="310" x="410" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-109" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Access control to users&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="210" x="920" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-110" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Manage / Monitor file stored&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="200" x="970" y="630" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-111" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Download File&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="160" x="519" y="690" as="geometry" />
+        </mxCell>
+        <mxCell id="QDdvLe-yMOPR3L4wx6hz-115" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;span style=&quot;font-size: 14px;&quot;&gt;&lt;b&gt;Upload File&lt;/b&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="30" width="160" x="510" y="590" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
