@@ -1,17 +1,14 @@
 import React from 'react';
 import DashLayout from "./DashLayout.jsx";
 
-const Dashboard = () => {
+const Scripts = () => {
     return (
         <DashLayout>
             <section className="dashboard-body">
                 <div className="page-header">
                     <div>
-                        <h2>Dashboard</h2>
+                        <h2>Scripts</h2>
 
-                        <p>
-                            Plan, prioritize and accomplish your tasks with ease.
-                        </p>
                     </div>
                 </div>
             </section>
@@ -19,4 +16,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Scripts;

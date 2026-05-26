@@ -4,6 +4,7 @@ import compassLogo from '../../assets/logo/compass-logo.png'
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {toast} from "react-toastify";
+import AuthVerify from "../service/AuthVerify.jsx";
 
 export default function Login() {
     const [step, setStep] = useState('login');
@@ -85,6 +86,7 @@ export default function Login() {
             if (res?.status === 200) {
                 toast.success(res?.message);
                 setUser({});
+                AuthVerify.saveToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imx1a2VtYW5AZ21haWwuY29tIiwibmFtZSI6Ikx1a2VtYW4gRHJhbWFuaSIsImRhdGEiOnsicm9sZSI6IkFkbWluIn0sImlhdCI6MTUxNjIzOTAyMn0.uRdiM2v132Orqi05JBvoW_tI7R-uBp3MwOVtdo0k0Pk")
                 navigate('/dashboard')
             }else {
                 toast.error(res?.message);
