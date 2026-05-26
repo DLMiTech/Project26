@@ -1,152 +1,204 @@
-
-.auth-page {
+.split-login-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #0ab39c, #405189);
+  background: #f3f6fb;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 40px 0;
-}
-
-.auth-wrapper {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* LEFT SIDE */
-.auth-left {
+  padding: 1rem;
   position: relative;
-  min-height: 500px;
-  background-image: linear-gradient(
-                  rgba(64, 81, 137, 0.82),
-                  rgba(64, 81, 137, 0.82)
-  ),
-  url("../../assets/img/ktu-img.jpg");
-  background-size: cover;
-  background-position: center;
-  padding: 2rem;
-  color: white;
-}
+  overflow: hidden;
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
+  /* Glow Effects */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
 
-.quote-box {
-  position: absolute;
-  bottom: 70px;
-  left: 50px;
-  right: 50px;
-  text-align: center;
-}
+  .glow-1 {
+    width: 300px;
+    height: 300px;
+    background: rgba(37, 99, 235, 0.25);
+    top: -100px;
+    left: -100px;
+  }
 
-.quote-icon {
-  font-size: 2.5rem;
-  color: var(--secondary-color);
-}
+  .glow-2 {
+    width: 350px;
+    height: 350px;
+    background: rgba(14, 165, 233, 0.25);
+    bottom: -120px;
+    right: -120px;
+  }
 
-.quote-box p {
-  font-size: .9rem;
-  font-style: italic;
-  line-height: 1.7;
-  margin-top: 1rem;
-}
+  /* Main Card */
+  .split-login-card {
+    width: 1000px;
+    border-radius: 2rem 1rem;
+    overflow: hidden;
+    background: white;
+    position: relative;
+    z-index: 10;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
 
 
-/* RIGHT SIDE */
+    /* LEFT PANEL */
+    .left-panel {
+      background: linear-gradient(135deg, #2563eb, #0ea5e9);
+      color: white;
+      position: relative;
 
-.auth-right {
-  padding: 2rem;
-  display: flex;
-  align-items: center;
+      .left-content {
+        padding: 2rem 1rem;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-  .form-container {
-    width: 100%;
+        .brand {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          margin-bottom: 1.5rem;
 
-    .header {
-      color: var(--primary-color);
-      font-size: 1.5rem;
-      font-weight: 700;
+          .brand-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            .logo{
+              width: 80%;
+            }
+          }
+          .header {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+          }
+        }
+
+        .mini-tag {
+          display: inline-block;
+          padding: 10px 18px;
+          border-radius: 40px;
+          background: rgba(255, 255, 255, 0.12);
+          font-size: .9rem;
+          margin-bottom: 30px;
+        }
+
+        .main-header{
+          font-size: 2.5rem;
+          line-height: 1.2;
+          font-weight: 900;
+        }
+
+        /* Analytics */
+        .analytics-box {
+          margin-top: 2rem;
+          display: flex;
+          gap: .5rem;
+
+          .analytics-item {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: .5rem;
+            padding: 1rem;
+            text-align: center;
+
+            h3 {
+              font-size: 1.5rem;
+              margin-bottom: 8px;
+              font-weight: 700;
+            }
+
+            span {
+              opacity: 0.8;
+            }
+          }
+        }
+
+        .footer{
+          margin-top: 2rem;
+          text-align: center;
+          font-size: .8rem;
+        }
+      }
     }
-    .subtitle {
-      color: #878a99;
-      margin-top: .5rem;
-      margin-bottom: 1rem;
-      font-size: .9rem;
-    }
-    .logo{
-      width: 4rem;
-    }
 
 
-    /* Divider */
-    .divider {
-      display: flex;
-      align-items: center;
-      margin: 1.5rem 0;
-      color: #878a99;
-      font-size: 14px;
+    /* RIGHT PANEL */
+    .right-panel {
+      background: white;
 
-      &::before,
-      &::after {
+      .auth-form-wrapper {
+        width: 100%;
+        margin: auto;
+        padding: 4rem 2rem;
+
+        /* Top */
+        .top-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: start;
+          margin-bottom: 1rem;
+
+          .header {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #111827;
+          }
+          .sub-tittle {
+            color: #6b7280;
+            margin-top: 8px;
+            font-size: .9rem;
+          }
+
+          .ktu-logo{
+            width: 4rem;
+          }
+        }
+      }
+
+
+      /* Divider */
+
+      .divider {
+        display: flex;
+        align-items: center;
+        margin: 35px 0 0 0;
+      }
+
+      .divider::before,
+      .divider::after {
         content: "";
         flex: 1;
-        border-bottom: 1px solid #dcdfe4;
+        border-bottom: 1px solid #e5e7eb;
       }
 
-      span {
-        margin: 0 15px;
-      }
-    }
+      .divider span {
+        padding: 0 15px;
+        color: #6b7280;
 
-    .auth-link {
-      color: #405189;
-      font-weight: 600;
-      text-decoration: none;
-      cursor: pointer;
-      &:hover {
-        text-decoration: underline;
+        .link {
+          text-decoration: none;
+          color: #2563eb;
+          font-weight: 600;
+        }
       }
     }
-
   }
 }
 
-
-
-/* Footer */
-.footer {
-  text-align: center;
-  margin-top: 25px;
-  color: rgba(255, 255, 255, 0.8);
-}
 
 /* Responsive */
 
-@media (max-width: 991px) {
-  .auth-left {
-    min-height: 200px;
-    padding: 1rem 2rem;
-  }
-  .logo {
-    font-size: 1.2rem;
-    font-weight: 700;
-    text-transform: uppercase;
+@media (max-width: 992px) {
+
+  .left-panel {
+    display: none;
   }
 
-  .quote-box {
-    position: absolute;
-    bottom: 10px;
-    left: 50px;
-    right: 50px;
-    text-align: center;
-  }
-
-  .quote-icon {
-    font-size: 2rem;
-  }
 }

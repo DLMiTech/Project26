@@ -1,40 +1,70 @@
 import React from 'react';
 import './Auth.scss'
+import compassLogo from '../../assets/logo/compass-logo.png'
 
 const AuthLayout = ({children}) => {
     const currentYear = new Date().getFullYear();
     return (
-        <div className="auth-page">
-            <div className={`container`}>
-                <div className="auth-wrapper row g-0">
-                    {/* LEFT SIDE */}
-                    <div className="col-lg-6 auth-left">
-                        <div className="overlay"></div>
+        <div className="split-login-page">
 
-                        <div className="content">
-                            <h1 className="logo">COMPASS</h1>
+            {/* Floating Glow */}
+            <div className="glow glow-1"></div>
+            <div className="glow glow-2"></div>
 
-                            <div className="quote-box">
-                                <i className="ri-double-quotes-l quote-icon"></i>
+            <div className="split-login-card row g-0">
 
-                                <p>
-                                    "Great! Clean code, clean design, easy for customization.
-                                    Thanks very much!"
-                                </p>
+                {/* LEFT PANEL */}
+                <div className="col-lg-5 left-panel">
+
+                    <div className="left-content">
+
+                        <div className="brand">
+                            <div className="brand-circle">
+                                <img src={compassLogo} alt={compassLogo} className={`logo`}/>
                             </div>
+
+                            <h2 className={`header`}>COMPSSA</h2>
                         </div>
-                    </div>
 
-                    {/* RIGHT SIDE */}
-                    <div className="col-lg-6 auth-right">
-                        {children}
+                        <span className="mini-tag">
+                          Computer Science Student Association KTU
+                        </span>
+
+                        <h1 className={`main-header`}>
+                            Exams <br />
+                            Script Repository
+                        </h1>
+
+                        <div className="analytics-box">
+
+                            <div className="analytics-item">
+                                <h3>150+</h3>
+                                <span>Projects</span>
+                            </div>
+
+                            <div className="analytics-item">
+                                <h3>24/7</h3>
+                                <span>Support</span>
+                            </div>
+
+                        </div>
+
+                        <div className="footer">
+                            © {currentYear} KTU COMPSSA. Powered by DLMiTech
+                        </div>
+
                     </div>
                 </div>
 
-                <div className="footer">
-                    © {currentYear} KTU COMPASS. Powered by DLM
+                {/* RIGHT PANEL */}
+                <div className="col-lg-7 right-panel">
+
+                    {children}
+
                 </div>
+
             </div>
+
         </div>
     );
 };

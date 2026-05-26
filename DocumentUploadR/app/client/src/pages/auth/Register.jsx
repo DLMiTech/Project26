@@ -1,13 +1,12 @@
-// Login.jsx
-import AuthLayout from "./AuthLayout.jsx";
-import ktuLogo from '../../assets/logo/ktu-logo.png'
+import React, {useState} from 'react';
+import ktuLogo from "../../assets/logo/ktu-logo.png";
 import {Link, useNavigate} from "react-router-dom";
-import {useState} from "react";
+import AuthLayout from "./AuthLayout.jsx";
 import {toast} from "react-toastify";
 
-export default function Login() {
-    const [step, setStep] = useState('login');
-    const [formData01, setFormData01] = useState({email:"", password:""})
+const Register = () => {
+    const [step, setStep] = useState('register');
+    const [formData01, setFormData01] = useState({email:"", name:"", password:""})
     const [formData02, setFormData02] = useState({code:""})
     const [loading, setLoading] = useState(false);
     const [user, setUser] = useState({});
@@ -15,8 +14,12 @@ export default function Login() {
     const navigate = useNavigate();
 
     const validate01 = () => {
-        if (formData01.email === "" || formData01.password === ""){
+        if (formData01.email === "" || formData01.name === "" || formData01.password === ""){
             toast.warn("All fields are required to register");
+            return false;
+        }
+        if (formData01.password.length < 4) {
+            toast.warn("Password must be at least 4 characters");
             return false;
         }
         return true;
@@ -24,10 +27,10 @@ export default function Login() {
     const handleChange01 = (e) => {
         setFormData01({
             ...formData01,
-            loginAction: true,
+            registerPassword: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitLogin = (e) => {
+    const handleSubmitRegister = (e) => {
         e.preventDefault();
         if (!validate01()) return;
         setLoading(true);
@@ -35,7 +38,7 @@ export default function Login() {
             //Call API
             const res = {
                 status: 200,
-                message: "Login successfully, please verify your email.",
+                message: "Account created successfully, please verify your email.",
                 data: {
                     id: 1,
                     email: "bob@gmail.com"
@@ -54,7 +57,6 @@ export default function Login() {
             setLoading(false);
         }
     }
-
 
     const validate02 = () => {
         if (formData02.code === ""){
@@ -96,10 +98,9 @@ export default function Login() {
         }
     }
 
-
     return (
         <AuthLayout>
-            {step === "login" && (
+            {step === "register" && (
                 <div className="auth-form-wrapper">
 
                     <div className="top-row">
@@ -111,7 +112,26 @@ export default function Login() {
                         <img src={ktuLogo} alt={ktuLogo} className={`ktu-logo`}/>
                     </div>
 
-                    <form onSubmit={handleSubmitLogin}>
+                    <form onSubmit={handleSubmitRegister}>
+                        {/* Email */}
+                        <div className="custom-input">
+                            <label>Name</label>
+
+                            <div className="input-box">
+                                <i className="ri-user-3-line left-icon"></i>
+
+                                <input
+                                    type="text"
+                                    className="form-control auth-input"
+                                    placeholder="Enter fullname"
+                                    value={formData01.name}
+                                    onChange={handleChange01}
+                                    name="name"
+                                />
+                            </div>
+                        </div>
+
+
                         {/* Email */}
                         <div className="custom-input">
                             <label>Email Address</label>
@@ -156,13 +176,13 @@ export default function Login() {
 
                         {/* Login Button */}
                         <button className="login-button">
-                            {loading ? "loading ..." : "Login"}
+                            {loading ? "loading ..." : "Register"}
                         </button>
                     </form>
 
                     {/* Divider */}
                     <div className="divider">
-                        <span>Don’t have an account?{" "}<Link to="/register" className={`link`}> Register</Link></span>
+                        <span>Already have an account ?{" "}<Link to="/login" className={`link`}> Login</Link></span>
                     </div>
                 </div>
             )}
@@ -207,11 +227,13 @@ export default function Login() {
 
                     {/* Divider */}
                     <div className="divider">
-                        <span>Don’t have an account?{" "}<Link to="/login" className={`link`}> Register</Link></span>
+                        <span>Already have an account ?{" "}<Link to="/login" className={`link`}> Login</Link></span>
                     </div>
                 </div>
             )}
 
         </AuthLayout>
     );
-}
+};
+
+export default Register;

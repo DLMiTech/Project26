@@ -12,7 +12,7 @@ const AuthLayout = ({children}) => {
                         <div className="overlay"></div>
 
                         <div className="content">
-                            <h1 className="logo">COMPASS</h1>
+                            <h1 className="logo">COMPSSA</h1>
                             <p>Examination script upload and management</p>
 
                             <div className="quote-box">
@@ -32,7 +32,7 @@ const AuthLayout = ({children}) => {
                 </div>
 
                 <div className="footer">
-                    © {currentYear} KTU COMPASS. Powered by DLMiTech
+                    © {currentYear} KTU COMPSSA. Powered by DLMiTech
                 </div>
             </div>
         </div>
