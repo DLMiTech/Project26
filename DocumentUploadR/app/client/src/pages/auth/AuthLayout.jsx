@@ -1,6 +1,6 @@
 import React from 'react';
 import './Auth.scss'
-import compassLogo from '../../assets/logo/compass-logo.png'
+import compassLogo from '../../assets/logo/compssa-logo.png'
 
 const AuthLayout = ({children}) => {
     const currentYear = new Date().getFullYear();

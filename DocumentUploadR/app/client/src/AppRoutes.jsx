@@ -7,6 +7,9 @@ import ProtectedRoute from "./pages/service/ProtectedRoute.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
+import Scripts from "./pages/dash/Scripts.jsx";
+import Settings from "./pages/dash/Settings.jsx";
+import Help from "./pages/dash/Help.jsx";
 
 
 const AppRoutes = () => {
@@ -20,8 +23,23 @@ const AppRoutes = () => {
 
 
             <Route path="/dashboard" element={
-                <ProtectedRoute allowedRoles={['Student', 'Teacher', 'Parent', 'Admin', 'Super-Admin']}>
+                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
                     <Dashboard />
+                </ProtectedRoute>
+            } />
+            <Route path="/scripts" element={
+                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                    <Scripts />
+                </ProtectedRoute>
+            } />
+            <Route path="/settings" element={
+                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                    <Settings />
+                </ProtectedRoute>
+            } />
+            <Route path="/help" element={
+                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                    <Help />
                 </ProtectedRoute>
             } />
 
