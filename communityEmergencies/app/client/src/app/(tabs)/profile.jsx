@@ -17,7 +17,6 @@ import RemixIcon from "react-native-remix-icon";
 import {useToast} from "../../components/common/ToastProvider";
 import FullScreenLoader from "../../components/common/fullScreenLoader";
 import Header from "../../components/common/Header";
-import { Skeleton } from "moti/skeleton";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -33,12 +32,9 @@ export default function Profile() {
 
     const menuItems = [
         { name: "Your profile", icon: "user-3-line" },
-        { name: "Payment methods", icon: "bank-card-line" },
-        { name: "My Wallet", icon: "wallet-3-line" },
         { name: "Settings", icon: "settings-3-line" },
         { name: "Help center", icon: "question-line" },
         { name: "Privacy policy", icon: "lock-line" },
-        { name: "Invite friends", icon: "user-add-line" },
     ];
 
     const submitLogout = async () => {
@@ -90,31 +86,10 @@ export default function Profile() {
 
                                 <View>
                                     <Text style={styles.name}>{userData?.user?.name}</Text>
-                                    <Text style={styles.email}>{userData?.user?.email}</Text>
+                                    <Text style={styles.email}>{userData?.user?.phone}</Text>
                                 </View>
                             </View>
 
-
-                            <View style={styles.profileInfo}>
-                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                    <Image
-                                        source={require('../../../assets/icons/ghana-flag.png')}
-                                        style={styles.flagImage}
-                                        resizeMode="contain"
-                                    />
-                                    <Text style={TEXT.Caption}>Ghana</Text>
-                                </View>
-
-                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                    <RemixIcon name="stairs-fill" size={22} color="#333" />
-                                    <Text style={TEXT.Caption}>Level one</Text>
-                                </View>
-
-                                <View style={{ flexDirection: "row", alignItems: "center", gap: 5 }}>
-                                    <RemixIcon name="gradienter-fill" size={22} color="#333" />
-                                    <Text style={TEXT.Caption}>1289 point</Text>
-                                </View>
-                            </View>
 
                             {/* MENU LIST */}
                             <View style={styles.card}>
@@ -199,22 +174,6 @@ const styles = StyleSheet.create({
         marginTop: 2,
     },
 
-    profileInfo: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: 10,
-        backgroundColor: "rgba(0,90,212,0.06)",
-        borderWidth: 1,
-        borderColor: "rgba(0,90,212,0.16)",
-        paddingHorizontal: 10,
-        paddingVertical: 15,
-        borderRadius: 10,
-    },
-    flagImage: {
-        width: 25,
-        height: 15,
-    },
 
     card: {
         backgroundColor: "#fff",
@@ -244,7 +203,7 @@ const styles = StyleSheet.create({
 
     logout: {
         marginTop: 20,
-        marginBottom: verticalScale(40),
+        marginBottom: verticalScale(10),
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",

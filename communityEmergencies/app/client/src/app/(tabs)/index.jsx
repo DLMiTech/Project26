@@ -1,15 +1,29 @@
-import React from 'react';
-import {KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {StatusBar} from "expo-status-bar";
+import React, {useState} from 'react';
+import {
+    View,
+    Text,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet, TouchableOpacity,
+} from "react-native";
 import {SafeAreaView} from "react-native-safe-area-context";
-import {COLOR} from "../../../utils/theme";
-import {verticalScale} from "../../../utils/scale";
-import BackButton from "../../../components/common/BackButton";
+import Copyright from "../../components/common/copyright";
+import {StatusBar} from "expo-status-bar";
+import {COLOR, TEXT} from "../../utils/theme";
+import {verticalScale} from "../../utils/scale";
+import MainHeader from "../../components/common/MainHeader";
 
-const Forms = () => {
+
+
+const Index = () => {
+
+
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark" />
+
+            <MainHeader/>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -17,8 +31,8 @@ const Forms = () => {
                     keyboardShouldPersistTaps="handled"
                 >
                     <View style={styles.wrapper}>
-                        <BackButton/>
-                        <Text>Forms Ghana</Text>
+
+                        <Copyright/>
                     </View>
 
                 </ScrollView>
@@ -28,7 +42,7 @@ const Forms = () => {
     );
 };
 
-export default Forms;
+export default Index;
 
 const styles = StyleSheet.create({
     container: {
@@ -38,6 +52,6 @@ const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
         paddingHorizontal: verticalScale(15),
+        backgroundColor: COLOR.background,
     },
-
 })

@@ -37,17 +37,16 @@ export default function SignUp(){
 
     const [errorMessages, setErrorMessages] = useState({});
     const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
 
 
-    const [registeredEmail, setRegisteredEmail] = useState("");
+    const [registeredPhone, setRegisteredPhone] = useState("");
     const otpRef = useRef(null);
     const [otpCode, setOtpCode] = useState("");
 
     const submitRegister = async () => {
-        if (email === "" || password === "" || name === "" || phone === ""){
+        if (password === "" || name === "" || phone === ""){
             showToast({
                 type: "warning",
                 message: "All fields are required to sign up.",
@@ -59,14 +58,6 @@ export default function SignUp(){
             showToast({
                 type: "warning",
                 message: validateName.message,
-            });
-            return;
-        }
-        const validateEmail = Validator.email(email);
-        if (!validateEmail.status) {
-            showToast({
-                type: "warning",
-                message: validateEmail.message,
             });
             return;
         }
@@ -91,25 +82,31 @@ export default function SignUp(){
             // call API here
             const payload = {
                 name: name,
-                email: email,
                 phone: phone,
                 password: password,
                 password_confirmation: password,
             }
 
-            const response = await fetch(BASE_URL.online+'/register', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online+'/register', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Successfully registered",
+                data: {
+                    phone: phone,
+                }
+            }
 
             if (data.status === 200) {
-                setRegisteredEmail(data?.data?.email)
+                setRegisteredPhone(data?.data?.phone)
                 setName("")
-                setEmail("")
                 setPhone("")
                 setPassword("")
                 setStep("verify");
@@ -171,17 +168,39 @@ export default function SignUp(){
         setLoading(true);
         try {
             const payload = {
-                email: registeredEmail,
+                phone: registeredPhone,
                 otp: otpCode,
             }
-            const response = await fetch(BASE_URL.online+'/verify-otp', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            // const response = await fetch(BASE_URL.online+'/verify-otp', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                data: {
+                    token: "sfhcdshf746574nsbcdsc",
+                    user: {
+                        wallet: {
+                            balance: 10000,
+                            transactions: [
+
+                            ],
+                        },
+                        id: 1,
+                        name: "Lukeman Dramani",
+                        username: "lukeman",
+                        phone: "0559574121",
+                        role: "user",
+                        type: "three",
+                    },
                 },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+                message: "Verification successfully.",
+            }
 
 
             if (data.status === 200) {
@@ -219,16 +238,21 @@ export default function SignUp(){
         setLoading(true);
 
         try {
-            const response = await fetch(BASE_URL.online + "/resend-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: registeredEmail,
-                })
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online + "/resend-otp", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         phone: registeredPhone,
+            //     })
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Verification code resend.",
+            }
 
             if (data.status === 200) {
                 showToast({
@@ -260,8 +284,6 @@ export default function SignUp(){
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark" />
-
-            {loading && < FullScreenLoader text={`Submitting data, please wait...`} />}
 
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <ScrollView
@@ -324,29 +346,6 @@ export default function SignUp(){
                                                     }));
                                                 }}
                                                 error={!!errorMessages.name}
-                                            />
-                                        </View>
-
-                                        <View>
-                                            {errorMessages.email && (
-                                                <Text style={styles.errorText}>
-                                                    {errorMessages.email[0]}
-                                                </Text>
-                                            )}
-                                            <DLMInput
-                                                icon="mail-send-fill"
-                                                placeholder="Enter your email"
-                                                keyboardType="email-address"
-                                                maxLength={100}
-                                                value={email}
-                                                onChangeText={(text) => {
-                                                    setEmail(text);
-                                                    setErrorMessages(prev => ({
-                                                        ...prev,
-                                                        email: null
-                                                    }));
-                                                }}
-                                                error={!!errorMessages.email}
                                             />
                                         </View>
 
@@ -414,7 +413,7 @@ export default function SignUp(){
                                 <View style={styles.middle}>
                                     <View style={styles.top}>
                                         <Image
-                                            source={require('../../../assets/auth-icon/verify.png')}
+                                            source={require('../../../assets/logo/logo-wb.png')}
                                             style={styles.image}
                                             resizeMode="contain"
                                         />
@@ -426,7 +425,7 @@ export default function SignUp(){
                                             Account Verification
                                         </Text>
                                         <Text style={[TEXT.Body, { textAlign: "center" }]}>
-                                            Enter the OPT sent to your email to verify your account.
+                                            Enter the OPT sent to your phone to verify your account.
                                         </Text>
                                     </View>
 
@@ -457,7 +456,7 @@ export default function SignUp(){
                                                 size={50}
                                                 width={6}
                                                 fill={(timeLeft / 300) * 100}
-                                                tintColor="#005AD4"
+                                                tintColor="#f3860f"
                                                 backgroundColor="#ddd"
                                                 rotation={0}
                                             >
@@ -513,8 +512,8 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: moderateScale(80),
-        height: moderateScale(80),
+        width: moderateScale(120),
+        height: moderateScale(140),
         marginBottom: verticalScale(20),
         marginTop: verticalScale(40),
     },
@@ -569,7 +568,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         padding: 10,
         borderWidth: 1,
-        borderRadius: 100,
+        borderRadius: 5,
         borderColor: COLOR.textLight,
     }
 });

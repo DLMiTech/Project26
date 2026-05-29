@@ -2,11 +2,10 @@ import React from 'react';
 import { Tabs } from "expo-router";
 import RemixIcon from "react-native-remix-icon";
 import { useAuthStore } from "../../utils/useAuthStore";
-import { BlurView } from "expo-blur";
-import {Platform, StyleSheet} from "react-native";
 import {COLOR} from "../../utils/theme";
 
 export default function _TabsLayout() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
     const { isAdmin } = useAuthStore();
 
     const screenOptions = {
@@ -20,23 +19,14 @@ export default function _TabsLayout() {
             right: 0,
             left: 0,
             height: 75,
-            backgroundColor: Platform.OS === 'ios' ? 'transparent' : '#fff',
+            backgroundColor: "#0e82d9",
             borderTopWidth: 0,
             elevation: 0,
         },
 
-        // 👇 THIS creates the glass effect
-        tabBarBackground: () => (
 
-            <BlurView
-                intensity={20}
-                tint="default"
-                style={StyleSheet.absoluteFill}
-            />
-        ),
-
-        tabBarActiveTintColor: COLOR.primary,
-        tabBarInactiveTintColor: COLOR.textLight,
+        tabBarActiveTintColor: COLOR.secondary,
+        tabBarInactiveTintColor: COLOR.background,
 
         tabBarLabelStyle: {
             fontSize: 15,
@@ -53,7 +43,7 @@ export default function _TabsLayout() {
                         <RemixIcon
                             name={focused ? 'dashboard-fill' : 'dashboard-line'}
                             size={24}
-                            color={focused ? '#005AD4' : '#272a2e'}
+                            color={focused ? '#f3860f' : '#ffe5ec'}
                         />
                     ),
                     tabBarLabel: 'Home',
@@ -61,16 +51,16 @@ export default function _TabsLayout() {
             />
 
             <Tabs.Screen
-                name="wallet"
+                name="report"
                 options={{
                     tabBarIcon: ({ focused }) => (
                         <RemixIcon
-                            name={focused ? 'wallet-fill' : 'wallet-line'}
+                            name={focused ? 'alarm-warning-fill' : 'alarm-warning-line'}
                             size={24}
-                            color={focused ? '#005AD4' : '#272a2e'}
+                            color={focused ? '#f3860f' : '#ffe5ec'}
                         />
                     ),
-                    tabBarLabel: 'Wallet',
+                    tabBarLabel: 'Report',
                 }}
             />
 
@@ -82,7 +72,7 @@ export default function _TabsLayout() {
                             <RemixIcon
                                 name={focused ? 'settings-3-fill' : 'settings-3-line'}
                                 size={24}
-                                color={focused ? '#005AD4' : '#272a2e'}
+                                color={focused ? '#f3860f' : '#ffe5ec'}
                             />
                         ),
                         tabBarLabel: 'Admin',
@@ -97,7 +87,7 @@ export default function _TabsLayout() {
                         <RemixIcon
                             name={focused ? 'user-3-fill' : 'user-3-line'}
                             size={22}
-                            color={focused ? '#005AD4' : '#272a2e'}
+                            color={focused ? '#f3860f' : '#ffe5ec'}
                         />
                     ),
                     tabBarLabel: 'Profile',

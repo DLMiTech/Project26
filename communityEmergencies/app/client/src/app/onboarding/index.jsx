@@ -9,27 +9,27 @@ import {moderateScale, verticalScale, normalize,} from "../../utils/scale";
 
 const ONBOARDING_DATA = [
     {
-        title: "Stipend Ghana",
+        title: "Report Emergencies Instantly",
         description:
-            "Manage your student funds, set budgets, receive support, and make secure payments easily.",
+            "Quickly report fires, accidents, power outages, water leaks, and public hazards directly from your phone.",
         image: require("../../../assets/images/onboard/onboarding-one.png"),
     },
     {
-        title: "Forms Ghana",
+        title: "Track Your Reports Live",
         description:
-            "Buy admission forms, track payments, and access institutions directly from one platform.",
+            "Receive status updates and monitor how authorities respond to your submitted reports.",
         image: require("../../../assets/images/onboard/onboarding-four.png"),
     },
     {
-        title: "Hostels Ghana",
+        title: "Helping Build Safer Communities",
         description:
-            "Find affordable hostels, compare prices, book beds, and explore locations near your school.",
+            "Work together with emergency responders and utility providers to improve safety and public services.",
         image: require("../../../assets/images/onboard/onboarding-two.png"),
     },
     {
-        title: "Internships Ghana",
+        title: "Location-Based Assistance",
         description:
-            "Discover internships, connect with HR, and track your performance while building experience.",
+            "Automatically share your location to help responders and utility teams reach issues faster.",
         image: require("../../../assets/images/onboard/onboarding-three.png"),
     },
 ];
@@ -79,7 +79,7 @@ export default function OnboardingScreen() {
 
     return (
         <View style={styles.container}>
-            <StatusBar style="dark" />
+            <StatusBar style="light" />
 
             {/* TOP */}
             <View style={styles.top}>
@@ -88,7 +88,7 @@ export default function OnboardingScreen() {
                     type="custom"
                     onPress={completeOnboarding}
                     variant="primary"
-                    color={COLOR.primary}
+                    color={COLOR.secondary}
                 />
             </View>
 
@@ -136,7 +136,7 @@ export default function OnboardingScreen() {
                             type="custom"
                             onPress={handleBack}
                             variant="primary"
-                            color={COLOR.primary}
+                            color={COLOR.secondary}
                         />
                     )}
 
@@ -145,7 +145,7 @@ export default function OnboardingScreen() {
                         type="custom"
                         onPress={handleNext}
                         variant="primary"
-                        color={COLOR.primary}
+                        color={COLOR.secondary}
                     />
                 </View>
 
@@ -157,7 +157,7 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLOR.white,
+        backgroundColor: COLOR.primary,
         padding: moderateScale(20),
     },
 
@@ -196,13 +196,14 @@ const styles = StyleSheet.create({
         fontFamily: "PoppinsBold",
         marginBottom: verticalScale(10),
         textAlign: "center",
+        color: COLOR.secondary,
     },
 
     description: {
         fontSize: normalize(18),
         fontFamily: "PoppinsRegular",
         textAlign: "center",
-        color: "#666",
+        color: COLOR.background,
     },
 
     dotsContainer: {
@@ -211,8 +212,8 @@ const styles = StyleSheet.create({
     },
 
     dot: {
-        width: moderateScale(12),
-        height: moderateScale(12),
+        width: moderateScale(15),
+        height: moderateScale(15),
         borderRadius: moderateScale(6),
         backgroundColor: "#ccc",
         marginHorizontal: moderateScale(5),
@@ -220,7 +221,7 @@ const styles = StyleSheet.create({
 
     activeDot: {
         width: moderateScale(25),
-        backgroundColor: COLOR.primary,
+        backgroundColor: COLOR.secondary,
     },
 
     buttonContainer: {

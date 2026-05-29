@@ -49,14 +49,14 @@ export default DlmRouteButton;
 
 const styles = StyleSheet.create({
     container: {
-        borderRadius: 50,
+        borderRadius: 5,
         overflow: "hidden",
     },
 
     glass: {
         width: 50,
         height: 50,
-        borderRadius: 50,
+        borderRadius: 5,
         alignItems: "center",
         justifyContent: "center",
         borderWidth: 1,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
 
     // For white backgrounds
     primaryGlass: {
-        backgroundColor: "rgba(0,90,212,0.1)", // #005AD4 with transparency
-        borderColor: "rgba(0,90,212,0.3)",
+        backgroundColor: "rgba(243,134,15,0.4)",
+        borderColor: "#f3860f",
     },
 });

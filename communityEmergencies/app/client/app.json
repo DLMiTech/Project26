@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "SchoolPal",
-    "slug": "SchoolPal",
+    "name": "Comm Alert",
+    "slug": "Comm Alert",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -11,18 +11,18 @@
     "ios": {
       "supportsTablet": true,
       "icon": {
-        "dark": "./assets/icons/ios-dark.png",
-        "light": "./assets/icons/ios-light.png",
-        "tinted": "./assets/icons/ios-tinted.png"
+        "dark": "./assets/icons/ios-icon-dark.png",
+        "light": "./assets/icons/ios-icon-default.png",
+        "tinted": "./assets/icons/ios-icon-tinted.png"
       },
       "bundleIdentifier": "com.anonymous.startup"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff",
-        "foregroundImage": "./assets/icons/adaptive-icon.png",
-        "backgroundImage": "./assets/icons/adaptive-icon.png",
-        "monochromeImage": "./assets/icons/adaptive-icon.png"
+        "foregroundImage": "./assets/icons/android-icon-foreground.png",
+        "backgroundImage": "./assets/icons/android-icon-foreground.png",
+        "monochromeImage": "./assets/icons/android-icon-foreground.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
@@ -37,12 +37,12 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/icons/splash-icon-dark.png",
+          "image": "./assets/icons/ios-icon-default.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#235347",
           "dark": {
-            "image": "./assets/icons/splash-icon-light.png",
+            "image": "./assets/icons/ios-icon-default.png",
             "backgroundColor": "#235347"
           }
         }

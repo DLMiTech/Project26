@@ -3,9 +3,8 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {router} from "expo-router";
 import RemixIcon from "react-native-remix-icon";
 import {COLOR} from "../../utils/theme";
-import {normalize} from "@/src/utils/scale";
-import {useAuthStore} from "@/src/utils/useAuthStore";
-import DLMDateTime from "@/src/components/common/DLMDateTime";
+import {normalize} from "../../utils/scale";
+import {useAuthStore} from "../../utils/useAuthStore";
 
 const MainHeader = () => {
     const userData = useAuthStore((state)=> state.user)
@@ -20,7 +19,7 @@ const MainHeader = () => {
                 <Image source={{ uri: profileImage }} style={styles.image} />
                 <View>
                     <Text style={styles.name}>{userData?.user?.username}</Text>
-                    <Text style={styles.date}>Last login date: <DLMDateTime date={userData?.user?.updated_at}/> </Text>
+                    <Text style={styles.date}>Role: {userData?.user?.role} </Text>
                 </View>
             </View>
 

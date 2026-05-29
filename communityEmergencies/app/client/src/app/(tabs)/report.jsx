@@ -20,12 +20,12 @@ import RemixIcon from "react-native-remix-icon";
 import Header from "../../components/common/Header";
 
 
-export default function Wallet() {
+export default function Report() {
 
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark" />
-            <Header icon={`wallet-fill`} title={`Wallet`}/>
+            <Header icon={`wallet-fill`} title={`Report`}/>
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -34,20 +34,7 @@ export default function Wallet() {
 
                     <View style={styles.wrapper}>
 
-                        <WalletCard amount={`2,455.77`} name={`Lukeman Dramani`} phone={`+233 24 000 0000`}/>
-                        <WalletActions/>
-                        <TransactionList/>
 
-                        <TouchableOpacity style={styles.allButton} onPress={() => router.push("/modals/wallet/allTransaction")}>
-                            <View>
-                                <RemixIcon
-                                    name={'reply-all-line'}
-                                    size={20}
-                                    color={''}
-                                />
-                            </View>
-                            <Text style={styles.buttonText}>All Translation</Text>
-                        </TouchableOpacity>
 
                         <Copyright/>
                     </View>

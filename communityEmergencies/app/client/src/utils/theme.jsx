@@ -7,11 +7,11 @@ const DIMENSIONS = {
     height: height,
 }
 const COLOR = {
-    primary: '#005AD4',//8FBFFF
-    secondary: '#B1C9EF',
-    background: '#F0F3FA',
+    primary: '#0e82d9',//8FBFFF
+    secondary: '#f3860f',
+    background: '#ffe5ec',
     white: '#FFFFFF',
-    textDark: '#272a2e',
+    textDark: '#353541',
     textLight: '#878A99FF',
 }
 
@@ -19,6 +19,7 @@ const TEXT = {
     Title: {
         fontSize: 28,
         fontFamily: "PoppinsExtraBold",
+        color: COLOR.textDark
     },
     Subtitle: {
         fontSize: 20,

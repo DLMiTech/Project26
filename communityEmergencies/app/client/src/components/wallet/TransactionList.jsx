@@ -21,14 +21,14 @@ const transactions = [
     },
     {
         id: 2,
-        title: "Wallet Top-up",
+        title: "Report Top-up",
         amount: 500,
         balance: 2450,
         date: "2026-05-04T14:10:00",
     },
     {
         id: 3,
-        title: "Wallet Top-up",
+        title: "Report Top-up",
         amount: 500,
         balance: 2450,
         date: "2026-05-04T14:10:00",

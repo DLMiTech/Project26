@@ -29,18 +29,18 @@ export default function SignIn() {
     const [showTimer, setShowTimer] = useState(true);
 
     const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [password, setPassword] = useState("");
     const { showToast } = useToast();
 
 
-    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPhone, setLoginPhone] = useState("");
     const otpRef = useRef(null);
     const [otpCode, setOtpCode] = useState("");
 
 
     const submitLogin = async () => {
-        if (email === "" || password === "") {
+        if (phone === "" || password === "") {
             showToast({
                 type: "error",
                 message: "Enter email and password to sign in.",
@@ -52,43 +52,41 @@ export default function SignIn() {
         try {
             // call API here
             const payload = {
-                email: email,
+                phone: phone,
                 password: password,
             }
 
-            const response = await fetch(BASE_URL.online+'/login', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online+'/login', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Successfully logged in",
+                data: {
+                    phone:"0559574121",
+                }
+            }
 
             if (data?.status === 200) {
-                setEmail("");
+                setPhone("");
                 setPassword("");
-                showToast({
-                    type: "success",
-                    message: "Welcome to SchoolPal!",
-                });
-                setUser(data?.data);
-                data?.data?.role === "admin" ? logInAsAdmin() : logIn()
-                router.replace("/(tabs)");
-            }else if(data?.status === 401){
-                showToast({
-                    type: "error",
-                    message: data?.message,
-                });
-            }else if(data?.status === 403){
-                setEmail("");
-                setPassword("");
-                setLoginEmail(email)
+                setLoginPhone(phone)
                 setStep("verify")
                 setTimeLeft(300);
                 setShowTimer(true);
                 showToast({
                     type: "warning",
+                    message: data?.message,
+                });
+            }else if(data?.status === 401){
+                showToast({
+                    type: "error",
                     message: data?.message,
                 });
             }else{
@@ -134,17 +132,40 @@ export default function SignIn() {
         setLoading(true);
         try {
             const payload = {
-                email: loginEmail,
+                phone: loginPhone,
                 otp: otpCode,
             }
-            const response = await fetch(BASE_URL.online+'/verify-otp', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            // const response = await fetch(BASE_URL.online+'/verify-otp', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+
+            const data = {
+                status: 200,
+                data: {
+                    token: "sfhcdshf746574nsbcdsc",
+                    user: {
+                        wallet: {
+                            balance: 10000,
+                            transactions: [
+
+                            ],
+                        },
+                        id: 1,
+                        name: "Lukeman Dramani",
+                        username: "lukeman",
+                        phone: "0559574121",
+                        role: "user",
+                        type: "three",
+                    },
                 },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+                message: "Verification successfully.",
+            }
 
 
             if (data.status === 200) {
@@ -181,16 +202,21 @@ export default function SignIn() {
         setLoading(true);
 
         try {
-            const response = await fetch(BASE_URL.online + "/resend-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: loginEmail,
-                })
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online + "/resend-otp", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         phone: loginPhone,
+            //     })
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Verification code resend.",
+            }
 
             if (data.status === 200) {
                 showToast({
@@ -228,10 +254,6 @@ export default function SignIn() {
         <SafeAreaView style={styles.container}>
             <StatusBar style="dark" />
 
-            {loading && (
-                <FullScreenLoader text="Logging into your account, please wait..." />
-            )}
-
             <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
@@ -266,12 +288,12 @@ export default function SignIn() {
                                         <View>
 
                                             <DLMInput
-                                                icon="mail-send-fill"
-                                                placeholder="Enter your email"
-                                                keyboardType="email-address"
-                                                maxLength={100}
-                                                value={email}
-                                                onChangeText={setEmail}
+                                                icon="phone-fill"
+                                                placeholder="Enter your phone"
+                                                keyboardType="number-pad"
+                                                maxLength={15}
+                                                value={phone}
+                                                onChangeText={setPhone}
                                             />
                                         </View>
 
@@ -314,7 +336,7 @@ export default function SignIn() {
                                 <View style={styles.middle}>
                                     <View style={styles.top}>
                                         <Image
-                                            source={require('../../../assets/auth-icon/verify.png')}
+                                            source={require('../../../assets/logo/logo-wb.png')}
                                             style={styles.image}
                                             resizeMode="contain"
                                         />
@@ -326,7 +348,7 @@ export default function SignIn() {
                                             Account Verification
                                         </Text>
                                         <Text style={[TEXT.Body, { textAlign: "center" }]}>
-                                            Enter the OPT sent to your email to verify your account.
+                                            Enter the OPT sent to your phone to verify your account.
                                         </Text>
                                     </View>
 
@@ -357,7 +379,7 @@ export default function SignIn() {
                                                 size={50}
                                                 width={6}
                                                 fill={(timeLeft / 300) * 100}
-                                                tintColor="#005AD4"
+                                                tintColor="#f3860f"
                                                 backgroundColor="#ddd"
                                                 rotation={0}
                                             >
@@ -391,7 +413,6 @@ export default function SignIn() {
                                     />
                                 </View>
                             )}
-
                         </View>
 
                         {/* FOOTER */}
@@ -424,8 +445,8 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: moderateScale(80),
-        height: moderateScale(80),
+        width: moderateScale(120),
+        height: moderateScale(140),
         marginBottom: verticalScale(20),
         marginTop: verticalScale(40),
     },

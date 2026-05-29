@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from "react-native";
+import {COLOR} from "../../utils/theme";
 
 const Copyright = () => {
     const currentYear = new Date().getFullYear();
@@ -7,7 +8,7 @@ const Copyright = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>
-                © {currentYear} SchoolPal. All rights reserved.
+                © {currentYear} EMERGENCY. Powered by DLMiTech.
             </Text>
         </View>
     );
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     text: {
-        fontSize: 12,
-        color: "#666",
+        fontSize: 14,
+        color: COLOR.textDark,
         fontFamily: "PoppinsExtraLightItalic",
     }
 });

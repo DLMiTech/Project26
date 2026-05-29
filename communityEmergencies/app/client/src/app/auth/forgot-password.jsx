@@ -25,46 +25,49 @@ import BASE_URL from "../../utils/url";
 import {AnimatedCircularProgress} from "react-native-circular-progress";
 import Validator from "../../utils/Validator";
 
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
 
 const ForgotPassword = () => {
     const [timeLeft, setTimeLeft] = useState(300);
     const [showTimer, setShowTimer] = useState(true);
-    const [step, setStep] = useState("email");
+    const [step, setStep] = useState("phone");
     const [loading, setLoading] = useState(false);
     const { showToast } = useToast();
 
     const [token, setToken] = useState("");
     const [errorMessages, setErrorMessages] = useState({});
     const otpRef = useRef(null);
-    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [otpCode, setOtpCode] = useState("");
     const [password, setPassword] = useState("");
 
 
     const submitForgotPassword = async () => {
-        if (email === "") {
+        if (phone === "") {
             showToast({
                 type: "error",
-                message: "Enter email to reset password.",
+                message: "Enter phone number to reset password.",
             });
             return;
         }
         setLoading(true);
         try {
             const payload = {
-                email: email,
+                phone: phone,
             }
 
-            const response = await fetch(BASE_URL.online+'/forgot-password', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online+'/forgot-password', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Successfully sent",
+            }
 
             if (data?.status === 200) {
                 showToast({
@@ -111,17 +114,25 @@ const ForgotPassword = () => {
 
         try {
             const payload = {
-                email: email,
+                phone: phone,
                 otp: otpCode,
             }
-            const response = await fetch(BASE_URL.online+'/verify-forgot-password-otp', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online+'/verify-forgot-password-otp', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Verification successfully.",
+                data: {
+                    token: "djgfhfvv54f98v4f",
+                }
+            }
 
             if (data.status === 200) {
                 showToast({
@@ -171,16 +182,21 @@ const ForgotPassword = () => {
         setLoading(true);
 
         try {
-            const response = await fetch(BASE_URL.online + "/resend-forgot-password-otp", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: email,
-                })
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online + "/resend-forgot-password-otp", {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         phone: phone,
+            //     })
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Verification code resend.",
+            }
 
             if (data.status === 200) {
                 showToast({
@@ -237,14 +253,19 @@ const ForgotPassword = () => {
                 password: password,
                 password_confirmation: password,
             }
-            const response = await fetch(BASE_URL.online+'/reset-password', {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(payload)
-            });
-            const data = await response.json();
+            // const response = await fetch(BASE_URL.online+'/reset-password', {
+            //     method: "PUT",
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify(payload)
+            // });
+            // const data = await response.json();
+
+            const data = {
+                status: 200,
+                message: "Password reset successfully.",
+            }
 
             if (data?.status === 200) {
                 showToast({
@@ -275,10 +296,6 @@ const ForgotPassword = () => {
             <SafeAreaView style={styles.container}>
                 <StatusBar style="dark" />
 
-                {loading && (
-                    <FullScreenLoader text="Submiting data, please wait..." />
-                )}
-
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                     <ScrollView
                         showsVerticalScrollIndicator={false}
@@ -300,11 +317,11 @@ const ForgotPassword = () => {
                                 </TouchableOpacity>
 
 
-                                {step === "email" && (
+                                {step === "phone" && (
                                     <View style={styles.middle}>
                                         <View style={styles.top}>
                                             <Image
-                                                source={require('../../../assets/auth-icon/forgot.png')}
+                                                source={require('../../../assets/logo/logo-wb.png')}
                                                 style={styles.image}
                                                 resizeMode="contain"
                                             />
@@ -316,32 +333,32 @@ const ForgotPassword = () => {
                                                 Forgot Password?
                                             </Text>
                                             <Text style={[TEXT.Body, { textAlign: "center" }]}>
-                                                Enter your email and password to sign in to SchoolPal.
+                                                Enter your phone number to reset your password.
                                             </Text>
                                         </View>
 
                                         <View style={styles.inputForm}>
 
                                             <View>
-                                                {errorMessages.email && (
+                                                {errorMessages.phone && (
                                                     <Text style={styles.errorText}>
-                                                        {errorMessages.email[0]}
+                                                        {errorMessages.phone[0]}
                                                     </Text>
                                                 )}
                                                 <DLMInput
-                                                    icon="mail-send-fill"
-                                                    placeholder="Enter your email"
-                                                    keyboardType="email-address"
-                                                    maxLength={100}
-                                                    value={email}
+                                                    icon="phone-fill"
+                                                    placeholder="Enter your phone"
+                                                    keyboardType="number-pad"
+                                                    maxLength={15}
+                                                    value={phone}
                                                     onChangeText={(text) => {
-                                                        setEmail(text);
+                                                        setPhone(text);
                                                         setErrorMessages(prev => ({
                                                             ...prev,
-                                                            email: null
+                                                            phone: null
                                                         }));
                                                     }}
-                                                    error={!!errorMessages.email}
+                                                    error={!!errorMessages.phone}
                                                 />
                                             </View>
 
@@ -360,7 +377,7 @@ const ForgotPassword = () => {
                                     <View style={styles.middle}>
                                         <View style={styles.top}>
                                             <Image
-                                                source={require('../../../assets/auth-icon/verify.png')}
+                                                source={require('../../../assets/logo/logo-wb.png')}
                                                 style={styles.image}
                                                 resizeMode="contain"
                                             />
@@ -372,7 +389,7 @@ const ForgotPassword = () => {
                                                 Account Verification
                                             </Text>
                                             <Text style={[TEXT.Body, { textAlign: "center" }]}>
-                                                Enter the OPT sent to your email to verify your account.
+                                                Enter the OPT sent to your phone number88 to verify your account.
                                             </Text>
                                         </View>
 
@@ -403,7 +420,7 @@ const ForgotPassword = () => {
                                                     size={50}
                                                     width={6}
                                                     fill={(timeLeft / 300) * 100}
-                                                    tintColor="#005AD4"
+                                                    tintColor="#f3860f"
                                                     backgroundColor="#ddd"
                                                     rotation={0}
                                                 >
@@ -432,7 +449,7 @@ const ForgotPassword = () => {
                                     <View style={styles.middle}>
                                         <View style={styles.top}>
                                             <Image
-                                                source={require('../../../assets/auth-icon/sign-in.png')}
+                                                source={require('../../../assets/logo/logo-wb.png')}
                                                 style={styles.image}
                                                 resizeMode="contain"
                                             />
@@ -506,8 +523,8 @@ const styles = StyleSheet.create({
     },
 
     image: {
-        width: moderateScale(80),
-        height: moderateScale(80),
+        width: moderateScale(120),
+        height: moderateScale(140),
         marginBottom: verticalScale(20),
         marginTop: verticalScale(40),
     },
@@ -560,7 +577,7 @@ const styles = StyleSheet.create({
         zIndex: 10,
         padding: 10,
         borderWidth: 1,
-        borderRadius: 100,
+        borderRadius: 5,
         borderColor: COLOR.textLight,
     }
 });

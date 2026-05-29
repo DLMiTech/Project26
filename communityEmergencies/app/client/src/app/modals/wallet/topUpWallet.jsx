@@ -7,7 +7,7 @@ import {verticalScale} from "../../../utils/scale";
 const TopUpWallet = () => {
     return (
         <TransparentModalWarper>
-            <ModelHeader icon={"wallet-fill"} title={"Top Up Wallet"}/>
+            <ModelHeader icon={"wallet-fill"} title={"Top Up Report"}/>
             <View style={styles.wrapper}>
                 <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                     <ScrollView
