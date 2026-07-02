@@ -10,6 +10,7 @@ import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
 import Scripts from "./pages/dash/Scripts.jsx";
 import Settings from "./pages/dash/Settings.jsx";
 import Help from "./pages/dash/Help.jsx";
+import AccessControl from "./pages/dash/AccessControl.jsx";
 
 
 const AppRoutes = () => {
@@ -23,22 +24,29 @@ const AppRoutes = () => {
 
 
             <Route path="/dashboard" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                <ProtectedRoute allowedRoles={['lecturer','hod']}>
                     <Dashboard />
                 </ProtectedRoute>
             } />
             <Route path="/scripts" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                <ProtectedRoute allowedRoles={['lecturer','hod']}>
                     <Scripts />
                 </ProtectedRoute>
             } />
             <Route path="/settings" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                <ProtectedRoute allowedRoles={['lecturer','hod']}>
                     <Settings />
                 </ProtectedRoute>
             } />
+
+            <Route path="/access-control" element={
+                <ProtectedRoute allowedRoles={['lecturer','hod']}>
+                    <AccessControl />
+                </ProtectedRoute>
+            } />
+
             <Route path="/help" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                <ProtectedRoute allowedRoles={['lecturer','hod']}>
                     <Help />
                 </ProtectedRoute>
             } />

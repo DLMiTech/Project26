@@ -156,3 +156,7 @@
 20260514	08:24:38	4bb9387b-9948-4f86-a694-dbd2badaa33c	POST	unknown	154.161.35.160	/auth/login
 20260514	08:29:45	9188fc8c-bb0c-418b-8b9f-953ed36fa22d	POST	unknown	154.161.35.160	/auth/login
 20260514	08:40:16	c7d03c19-d3bf-471b-af41-9945aa7593a2	POST	unknown	154.161.35.160	/auth/login
+20260602	23:29:41	e91408e1-0f36-40d1-8291-22fad6d1f9b6	GET	unknown	::1	/
+20260602	23:30:03	71982912-b3f4-491d-910d-58b37e012f8b	GET	unknown	::1	/auth/login
+20260602	23:30:16	6f7ba96a-828c-481c-91d2-2c0c07d40e22	POST	unknown	::1	/auth/login
+20260602	23:34:23	af5f9ede-b6f6-4cc5-8bef-80e07356168a	POST	unknown	::1	/auth/login

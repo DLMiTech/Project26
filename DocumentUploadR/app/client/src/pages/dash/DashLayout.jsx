@@ -4,20 +4,22 @@ import "remixicon/fonts/remixicon.css";
 import "./DashLayout.scss";
 import logo from '../../assets/logo/compssa-logo.png'
 import AuthVerify from "../service/AuthVerify.jsx";
-import {NavLink, useLocation} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
+import AuthRequest from "../request/auth.jsx";
+import {toast} from "react-toastify";
 
 const menuItems = [
     {
         icon: "ri-dashboard-line",
         label: "Dashboard",
         to: "/dashboard",
-        roles: ["Teacher", "Admin"],
+        roles: ['lecturer','hod'],
     },
     {
         icon: "ri-folder-4-line",
         label: "Scripts",
         to: "/scripts",
-        roles: ["Teacher", "Admin"],
+        roles: ['lecturer','hod'],
     },
 ];
 
@@ -26,22 +28,50 @@ const generalItems = [
         icon: "ri-settings-3-line",
         label: "Settings",
         to: "/settings",
-        roles: ["Teacher", "Admin"],
+        roles: ['lecturer','hod'],
+    },
+    {
+        icon: "ri-settings-3-line",
+        label: "Access Control",
+        to: "/access-control",
+        roles: ['lecturer','hod'],
     },
     {
         icon: "ri-question-line",
         label: "Help",
         to: "/help",
-        roles: ["Teacher", "Admin"],
+        roles: ['lecturer','hod'],
     },
 ];
 
 export default function DashLayout({children}) {
     const [showSidebar, setShowSidebar] = useState(false);
     const currentYear = new Date().getFullYear();
-    const location = useLocation();
     const userData = AuthVerify.decodeToken();
-    const role = userData?.data?.role;
+    const navigate = useNavigate();
+    const role = userData?.role;
+    const [loading, setLoading] = useState(false);
+
+    const handleLogout = async () => {
+        setLoading(true);
+        try {
+            const payload = {}
+            const res = await AuthRequest.logout(payload);
+
+            if (res?.status === 200) {
+                toast.success(res?.message);
+                AuthVerify.logout()
+                navigate('/login')
+            }else {
+                toast.error(res?.message);
+            }
+        } catch (err) {
+            console.log(err);
+            toast.error(err.message);
+        } finally {
+            setLoading(false);
+        }
+    }
 
     return (
         <div className="dashboard-layout">
@@ -96,9 +126,11 @@ export default function DashLayout({children}) {
                             </NavLink>
                         ))}
 
-                    <div className={`logout`}>
+                    <div className={`logout`} onClick={() => handleLogout()}>
                         <i className="ri-logout-box-r-line"></i>
-                        <span>Logout</span>
+                        <span>
+                            {loading ? "Logging out ..." : "Logout"}
+                        </span>
                     </div>
                 </div>
 

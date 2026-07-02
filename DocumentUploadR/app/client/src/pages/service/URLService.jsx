@@ -1,9 +1,7 @@
 class URLService{
 
     static baseURL() {
-        const local = 'http://localhost/dlm/school_smarter/private/api';
-        const remote = "https://smarter.dlmitech.com/private/api";
-        return local;
+        return 'http://localhost:3001/api';
     }
 
 
