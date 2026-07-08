@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {toast} from "react-toastify";
 import AuthLayout from "./AuthLayout.jsx";
 import ktuLogo from "../../assets/logo/ktu-logo.png";
-import AuthRequest from "../request/auth.jsx";
+import AuthRequest from "../../request/auth.jsx";
 
 const ForgotPassword = () => {
     const [step, setStep] = useState('forgot-password');

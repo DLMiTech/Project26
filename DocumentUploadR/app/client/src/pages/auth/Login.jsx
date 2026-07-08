@@ -4,8 +4,8 @@ import ktuLogo from '../../assets/logo/ktu-logo.png'
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {toast} from "react-toastify";
-import AuthVerify from "../service/AuthVerify.jsx";
-import AuthRequest from "../request/auth.jsx";
+import AuthVerify from "../../service/AuthVerify.jsx";
+import AuthRequest from "../../request/auth.jsx";
 
 export default function Login() {
     const [step, setStep] = useState('login');

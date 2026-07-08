@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import "remixicon/fonts/remixicon.css";
 import "./DashLayout.scss";
 import logo from '../../assets/logo/compssa-logo.png'
-import AuthVerify from "../service/AuthVerify.jsx";
+import AuthVerify from "../../service/AuthVerify.jsx";
 import {NavLink, useNavigate} from "react-router-dom";
-import AuthRequest from "../request/auth.jsx";
+import AuthRequest from "../../request/auth.jsx";
 import {toast} from "react-toastify";
 
 const menuItems = [
@@ -13,47 +13,43 @@ const menuItems = [
         icon: "ri-dashboard-line",
         label: "Dashboard",
         to: "/dashboard",
-        roles: ['lecturer','hod'],
-    },
-    {
-        icon: "ri-briefcase-5-line",
-        label: "Courses",
-        to: "/course",
-        roles: ['lecturer','hod'],
-    },
-    {
-        icon: "ri-folder-4-line",
-        label: "Scripts",
-        to: "/scripts",
-        roles: ['lecturer','hod'],
-    },
-];
-
-const generalItems = [
-    // {
-    //     icon: "ri-settings-3-line",
-    //     label: "Settings",
-    //     to: "/settings",
-    //     roles: ['lecturer','hod'],
-    // },
-    {
-        icon: "ri-settings-3-line",
-        label: "Access Control",
-        to: "/access-control",
-        roles: ['lecturer','hod'],
+        roles: ['lecture','hod'],
     },
     {
         icon: "ri-folder-2-line",
-        label: "Create repository",
-        to: "/repository",
+        label: "Access Control",
+        to: "/access-control",
+        roles: ['lecture', 'hod'],
+    },
+    {
+        icon: "ri-folder-2-line",
+        label: "Repositories",
+        to: "/repositories",
         roles: ['hod'],
     },
-    // {
-    //     icon: "ri-question-line",
-    //     label: "Help",
-    //     to: "/help",
-    //     roles: ['lecturer','hod'],
-    // },
+    {
+        icon: "ri-folder-2-line",
+        label: "Uploads",
+        to: "/uploads",
+        roles: ['lecture', 'hod'],
+    },
+
+];
+
+const generalItems = [
+    {
+        icon: "ri-folder-2-line",
+        label: "Courses",
+        to: "/courses",
+        roles: ['lecture','hod'],
+    },
+    {
+        icon: "ri-folder-2-line",
+        label: "Lecture Courses",
+        to: "/lecture-courses",
+        roles: ['lecture','hod'],
+    },
+
 ];
 
 export default function DashLayout({children}) {

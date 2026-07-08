@@ -3,8 +3,8 @@ import ktuLogo from "../../assets/logo/ktu-logo.png";
 import {Link, useNavigate} from "react-router-dom";
 import AuthLayout from "./AuthLayout.jsx";
 import {toast} from "react-toastify";
-import AuthRequest from "../request/auth.jsx";
-import AuthVerify from "../service/AuthVerify.jsx";
+import AuthRequest from "../../request/auth.jsx";
+import AuthVerify from "../../service/AuthVerify.jsx";
 
 const Register = () => {
     const [step, setStep] = useState('register');
