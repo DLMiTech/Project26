@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const authModel = require('../models/authModel');
 const { sendOTP } = require('../utils/email');
+const CourseModel = require("../models/courseModel");
 require('dotenv').config();
 
 const generateToken = (user) => {
@@ -268,6 +269,25 @@ const authController = {
                 status: 200,
                 message: 'Logout successful'
             });
+        } catch (error) {
+            return res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message
+            });
+        }
+    },
+
+    getLectures: async (req, res) => {
+        try {
+            const lectures = await authModel.getAllUsers();
+            console.log(lectures);
+
+            res.status(200).json({
+                success: true,
+                count: lectures.length,
+                data: lectures
+            });
+
         } catch (error) {
             return res.status(500).json({
                 status: 500,

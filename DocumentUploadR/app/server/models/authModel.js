@@ -65,6 +65,28 @@ const authModel = {
     // Check password
     checkPassword: async (plainPassword, hashedPassword) => {
         return await bcrypt.compare(plainPassword, hashedPassword);
+    },
+
+    async getByRole(role) {
+        const query = `
+        SELECT *
+        FROM users
+        WHERE role = ?
+        ORDER BY created_at DESC
+    `;
+        const [rows] = await pool.query(query, [role]);
+        return rows;
+    },
+
+
+    async getAllUsers() {
+        const query = `
+        SELECT *
+        FROM users
+        ORDER BY created_at DESC
+    `;
+        const [rows] = await pool.query(query);
+        return rows;
     }
 };
 

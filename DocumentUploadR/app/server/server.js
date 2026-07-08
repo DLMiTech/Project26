@@ -1,10 +1,17 @@
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const path = require('path');
 const { initDB } = require('./config/db');
 const authRouter = require('./routes/authRouter');
-const courseRouter = require('./routes/courseRouter');
-const accessRouter = require('./routes/accessRouter');
+const courseRouter = require('./routes/courseRoutes');
+const lectureCourseRoutes = require('./routes/lectureCourseRoutes');
+const accessControlRoutes = require('./routes/accessControlRoutes');
+const repositoryRoutes = require('./routes/repositoryRoutes');
+const semesterRepoRoutes = require('./routes/semesterRepoRoutes');
+const courseRepositoryRoutes = require('./routes/courseRepositoryRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -21,10 +28,18 @@ app.use(cors({
 app.use(express.json());
 app.use(cookieParser());
 
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Routes
 app.use('/api/auth', authRouter);
 app.use('/api/courses', courseRouter);
-app.use('/api/access', accessRouter);
+app.use('/api/lecture-courses', lectureCourseRoutes);
+app.use('/api/access-control', accessControlRoutes);
+app.use('/api/repository', repositoryRoutes);
+app.use('/api/semester-repo', semesterRepoRoutes);
+app.use('/api/course-repository', courseRepositoryRoutes);
+app.use('/api/uploads', uploadRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 // Health check
 app.get('/', (req, res) => {

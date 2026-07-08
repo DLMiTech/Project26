@@ -12,6 +12,7 @@ router.post('/forgot-password', authController.forgotPassword);
 router.post('/verify-forgot-password-otp', authController.verifyForgotPasswordOTP);
 router.post('/reset-password', authController.resetPassword);
 router.post('/logout', authMiddleware, authController.logout);
+router.get('/lectures', authMiddleware, authController.getLectures);
 
 // Protected route
 router.get('/dashboard', authMiddleware, authController.dashboard);
