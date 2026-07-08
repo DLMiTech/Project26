@@ -16,6 +16,12 @@ const menuItems = [
         roles: ['lecturer','hod'],
     },
     {
+        icon: "ri-briefcase-5-line",
+        label: "Courses",
+        to: "/course",
+        roles: ['lecturer','hod'],
+    },
+    {
         icon: "ri-folder-4-line",
         label: "Scripts",
         to: "/scripts",
@@ -24,12 +30,12 @@ const menuItems = [
 ];
 
 const generalItems = [
-    {
-        icon: "ri-settings-3-line",
-        label: "Settings",
-        to: "/settings",
-        roles: ['lecturer','hod'],
-    },
+    // {
+    //     icon: "ri-settings-3-line",
+    //     label: "Settings",
+    //     to: "/settings",
+    //     roles: ['lecturer','hod'],
+    // },
     {
         icon: "ri-settings-3-line",
         label: "Access Control",
@@ -37,11 +43,17 @@ const generalItems = [
         roles: ['lecturer','hod'],
     },
     {
-        icon: "ri-question-line",
-        label: "Help",
-        to: "/help",
-        roles: ['lecturer','hod'],
+        icon: "ri-folder-2-line",
+        label: "Create repository",
+        to: "/repository",
+        roles: ['hod'],
     },
+    // {
+    //     icon: "ri-question-line",
+    //     label: "Help",
+    //     to: "/help",
+    //     roles: ['lecturer','hod'],
+    // },
 ];
 
 export default function DashLayout({children}) {

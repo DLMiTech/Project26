@@ -85,7 +85,7 @@ body{
     .input-box {
       position: relative;
 
-      input {
+      input, select, textarea {
         height: 50px;
         border-radius: 50px;
         border: 1px solid #e5e7eb;
