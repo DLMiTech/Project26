@@ -1,7 +1,202 @@
 const accessModel = require('../models/accessModel');
 const authModel = require('../models/authModel');
+const {sendRequestMessage} = require("../utils/email");
 
 const accessController = {
+
+    requestAccess: async (req, res) => {
+        try {
+            const lecturer_id = req.user.id;
+
+            const { course_id, semester, access_level, note } = req.body;
+
+            // Validate required fields
+            if (!lecturer_id || !course_id || !semester || !access_level) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'lecturer_id, course_id, semester, access_level are required' });
+            }
+
+
+            // Validate access level
+            const validLevels = ['view', 'download', 'edit'];
+            if (access_level && !validLevels.includes(access_level)) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Access level must be view, download, or edit' });
+            }
+
+            // Validate semester
+            const validSemesters = ['1st', '2nd'];
+            if (!validSemesters.includes(semester)) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Invalid semester' });
+            }
+
+            // Check for duplicate active access
+            const duplicate = await accessModel.checkDuplicate(lecturer_id, course_id);
+            if (duplicate) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'You have already request for this access and is pending' });
+            }
+
+            const accessId = await accessModel.create(
+                lecturer_id,
+                course_id,
+                semester,
+                access_level || 'view',
+                note
+            );
+
+            // Send message
+            //await sendRequestMessage();
+
+            res.status(201).json({
+                status: 201,
+                message: 'Access request successfully',
+                accessId
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
+        }
+    },
+
+
+    getAllAccessPending: async (req, res) => {
+        try {
+            let access;
+            if (req.user.role === 'hod') {
+                access = await accessModel.getPendingAccess();
+            } else {
+                access = await accessModel.getByLecturer(req.user.id);
+            }
+
+            res.status(200).json({
+                status: 200,
+                count: access.length,
+                data: access
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
+        }
+    },
+
+
+    getAllAccess: async (req, res) => {
+        try {
+
+            if (req.user.role !== 'hod') {
+                return res.status(403).json({
+                    status: 403,
+                    message: 'Only HOD can access all access permissions' });
+            }
+
+            const access = await accessModel.getAccess();
+
+            res.status(200).json({
+                status: 200,
+                count: access.length,
+                data: access
+            });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
+        }
+    },
+
+
+    updateAccess: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const hodId = req.user.id;
+
+            // Only HOD can update
+            if (req.user.role !== 'hod') {
+                return res.status(403).json({
+                    status: 403,
+                    message: 'Only HOD can update access' });
+            }
+
+            const { start_datetime, end_datetime, status } = req.body;
+
+            const updates = {};
+            if (start_datetime) updates.start_datetime = start_datetime;
+            if (end_datetime) updates.end_datetime = end_datetime;
+            if (status !== undefined) updates.status = status;
+
+            if (Object.keys(updates).length === 0) {
+                return res.status(400).json({
+                    status: 400,
+                    message: 'No fields to update' });
+            }
+
+            // Validate dates if both provided
+            if (updates.start_datetime && updates.end_datetime) {
+                const start = new Date(updates.start_datetime);
+                const end = new Date(updates.end_datetime);
+                if (end <= start) {
+                    return res.status(400).json({
+                        status: 400,
+                        message: 'End datetime must be after start datetime' });
+                }
+            }
+
+            await accessModel.update(id, updates);
+
+            //Send email
+
+            res.status(200).json({
+                status: 200,
+                message: 'Access granted successfully' });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
+        }
+    },
+
+
+    // 7. Delete access
+    deleteAccess: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            // Only HOD can delete
+            if (req.user.role !== 'hod') {
+                return res.status(403).json({
+                    status: 403,
+                    message: 'Only HOD can delete access' });
+            }
+
+            await accessModel.delete(id);
+            res.status(200).json({
+                status: 200,
+                message: 'Access deleted successfully' });
+        } catch (error) {
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
+        }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
     // 1. Get all lecturers (with their courses)
     getAllLecturers: async (req, res) => {
         try {
@@ -108,7 +303,7 @@ const accessController = {
             }
 
             // Validate semester
-            const validSemesters = ['1st', '2nd', '3rd', '4th', '5th', '6th', '7th', '8th'];
+            const validSemesters = ['1st', '2nd'];
             if (!validSemesters.includes(semester)) {
                 return res.status(400).json({ message: 'Invalid semester' });
             }
@@ -146,25 +341,6 @@ const accessController = {
         }
     },
 
-    // 4. View all access controls
-    getAllAccess: async (req, res) => {
-        try {
-            let access;
-            if (req.user.role === 'hod') {
-                access = await accessModel.getByHod(req.user.id);
-            } else {
-                access = await accessModel.getByLecturer(req.user.id);
-            }
-
-            res.json({
-                count: access.length,
-                access
-            });
-        } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
-        }
-    },
-
     // 5. View access by ID
     getAccessById: async (req, res) => {
         try {
@@ -186,89 +362,6 @@ const accessController = {
         }
     },
 
-    // 6. Update access
-    updateAccess: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const hodId = req.user.id;
-
-            // Only HOD can update
-            if (req.user.role !== 'hod') {
-                return res.status(403).json({ message: 'Only HOD can update access' });
-            }
-
-            const access = await accessModel.getById(id);
-            if (!access) {
-                return res.status(404).json({ message: 'Access control not found' });
-            }
-
-            // Only the HOD who created it can update
-            if (access.hod_id !== hodId) {
-                return res.status(403).json({ message: 'Not authorized to update this access' });
-            }
-
-            const { access_level, start_datetime, end_datetime, note, is_active } = req.body;
-
-            const updates = {};
-            if (access_level) {
-                const validLevels = ['view', 'download', 'edit'];
-                if (!validLevels.includes(access_level)) {
-                    return res.status(400).json({ message: 'Invalid access level' });
-                }
-                updates.access_level = access_level;
-            }
-            if (start_datetime) updates.start_datetime = start_datetime;
-            if (end_datetime) updates.end_datetime = end_datetime;
-            if (note !== undefined) updates.note = note;
-            if (is_active !== undefined) updates.is_active = is_active;
-
-            if (Object.keys(updates).length === 0) {
-                return res.status(400).json({ message: 'No fields to update' });
-            }
-
-            // Validate dates if both provided
-            if (updates.start_datetime && updates.end_datetime) {
-                const start = new Date(updates.start_datetime);
-                const end = new Date(updates.end_datetime);
-                if (end <= start) {
-                    return res.status(400).json({ message: 'End datetime must be after start datetime' });
-                }
-            }
-
-            await accessModel.update(id, updates);
-            res.json({ message: 'Access updated successfully' });
-        } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
-        }
-    },
-
-    // 7. Delete access
-    deleteAccess: async (req, res) => {
-        try {
-            const { id } = req.params;
-            const hodId = req.user.id;
-
-            // Only HOD can delete
-            if (req.user.role !== 'hod') {
-                return res.status(403).json({ message: 'Only HOD can delete access' });
-            }
-
-            const access = await accessModel.getById(id);
-            if (!access) {
-                return res.status(404).json({ message: 'Access control not found' });
-            }
-
-            // Only the HOD who created it can delete
-            if (access.hod_id !== hodId) {
-                return res.status(403).json({ message: 'Not authorized to delete this access' });
-            }
-
-            await accessModel.delete(id);
-            res.json({ message: 'Access deleted successfully' });
-        } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
-        }
-    }
 };
 
 module.exports = accessController;

@@ -22,6 +22,22 @@ const courseModel = {
         return rows;
     },
 
+    getAllLecture: async (id) => {
+        const [rows] = await pool.query(
+            `SELECT
+                c.*,
+                u.name AS lecturer_name,
+                u.email AS lecturer_email
+            FROM courses c
+                     JOIN users u ON c.lecturer_id = u.id
+            WHERE c.lecturer_id = ?
+            ORDER BY c.created_at DESC
+            `,[id]
+        );
+
+        return rows;
+    },
+
     // Get course by ID
     getById: async (id) => {
         const [rows] = await pool.query(`

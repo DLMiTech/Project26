@@ -9,19 +9,25 @@ const courseController = {
 
             // Validate
             if (!code || !title || !semester) {
-                return res.status(400).json({ message: 'Code, title and semester are required' });
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Code, title and semester are required' });
             }
 
             // Check if code exists
             const exists = await courseModel.codeExists(code);
             if (exists) {
-                return res.status(400).json({ message: 'Course code already exists' });
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Course code already exists' });
             }
 
             // Validate semester
             const validSemesters = ['1st', '2nd'];
             if (!validSemesters.includes(semester)) {
-                return res.status(400).json({ message: 'Invalid semester' });
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Invalid semester' });
             }
 
             const courseId = await courseModel.create(
@@ -34,24 +40,39 @@ const courseController = {
             );
 
             res.status(201).json({
+                status: 201,
                 message: 'Course created successfully',
                 courseId
             });
         } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
         }
     },
 
     // Get all courses
     getAllCourses: async (req, res) => {
         try {
-            const courses = await courseModel.getAll();
-            res.json({
+            const role = req.user.role;
+            const lecturerId = req.user.id;
+            let courses = [];
+
+            if (role === "hod"){
+                courses = await courseModel.getAll();
+            }else {
+                courses = await courseModel.getAllLecture(lecturerId);
+            }
+
+            res.status(200).json({
+                status: 200,
                 count: courses.length,
-                courses
+                data: courses
             });
         } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
         }
     },
 
@@ -153,18 +174,26 @@ const courseController = {
             // Check if course exists
             const course = await courseModel.getById(id);
             if (!course) {
-                return res.status(404).json({ message: 'Course not found' });
+                return res.status(404).json({
+                    status: 404,
+                    message: 'Course not found' });
             }
 
             // Check ownership (only creator or HOD can delete)
             if (course.lecturer_id !== lecturerId && req.user.role !== 'hod') {
-                return res.status(403).json({ message: 'Not authorized to delete this course' });
+                return res.status(403).json({
+                    status: 403,
+                    message: 'Not authorized to delete this course' });
             }
 
             await courseModel.delete(id);
-            res.json({ message: 'Course deleted successfully' });
+            return res.status(200).json({
+                status: 200,
+                message: 'Course deleted successfully' });
         } catch (error) {
-            res.status(500).json({ message: 'Server error', error: error.message });
+            res.status(500).json({
+                status: 500,
+                message: 'Server error', error: error.message });
         }
     }
 };
