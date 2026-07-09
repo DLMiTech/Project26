@@ -4,6 +4,7 @@ import compassLogo from '../../assets/logo/compass-logo.png'
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {toast} from "react-toastify";
+import AuthRequest from "../../request/auth.jsx";
 
 export default function ForgotPassword() {
     const [step, setStep] = useState('forgot-password');
@@ -28,30 +29,28 @@ export default function ForgotPassword() {
             forgotPassword: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitForgotPassword = (e) => {
+    const handleSubmitForgotPassword = async (e) => {
         e.preventDefault();
         if (!validate01()) return;
         setLoading(true);
         try {
             //Call API
-            const res = {
-                status: 200,
-                message: "Verify your account",
-                data: {
-                    id: 1,
-                    email: "bob@gmail.com"
-                }
+            const payload = {
+                ...formData01
             }
+            const res = await AuthRequest.forgot_password(payload);
+
             if (res?.status === 200) {
                 toast.success(res?.message);
                 setUser(res.data);
                 setStep('verification');
-            }else {
+            } else {
                 toast.error(res?.message);
             }
-        }catch(err) {
+        } catch (err) {
             console.log(err);
-        }finally {
+            toast.error(err.message);
+        } finally {
             setLoading(false);
         }
     }
@@ -73,30 +72,30 @@ export default function ForgotPassword() {
             verifyAccount: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitVerifyAccount = (e) => {
+    const handleSubmitVerifyAccount = async (e) => {
         e.preventDefault();
         if (!validate02()) return;
         setLoading(true);
         try {
             //Call API
-            const res = {
-                status: 200,
-                message: "Verification successfully, reset your password.",
-                data: {
-                    id: 1,
-                    email: "bob@gmail.com"
-                }
+
+            const payload = {
+                email: formData02.email,
+                otp: formData02.code,
             }
+            const res = await AuthRequest.verify_forgot_password_otp(payload);
+
             if (res?.status === 200) {
                 toast.success(res?.message);
                 setUser(res.data);
                 setStep('password-reset');
-            }else {
+            } else {
                 toast.error(res?.message);
             }
-        }catch(err) {
+        } catch (err) {
             console.log(err);
-        }finally {
+            toast.error(err.message);
+        } finally {
             setLoading(false);
         }
     }
@@ -125,26 +124,29 @@ export default function ForgotPassword() {
             resetPassword: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitResetPassword = (e) => {
+    const handleSubmitResetPassword = async (e) => {
         e.preventDefault();
         if (!validate03()) return;
         setLoading(true);
         try {
             //Call API
-            const res = {
-                status: 200,
-                message: "Password reset successfully, please login.",
+            const payload = {
+                email: formData03.email,
+                newPassword: formData03.password,
             }
+            const res = await AuthRequest.reset_password(payload);
+
             if (res?.status === 200) {
                 toast.success(res?.message);
                 setUser({});
                 navigate("/login");
-            }else {
+            } else {
                 toast.error(res?.message);
             }
-        }catch(err) {
+        } catch (err) {
             console.log(err);
-        }finally {
+            toast.error(err.message);
+        } finally {
             setLoading(false);
         }
     }

@@ -2,14 +2,18 @@ import React from 'react';
 import {Route, Routes} from "react-router-dom";
 import Index from "./pages/Index.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import Dashboard from "./pages/dash/Dashboard.jsx";
-import ProtectedRoute from "./pages/service/ProtectedRoute.jsx";
+import Dashboard from "./pages/dash/dashboard/Dashboard.jsx";
+import ProtectedRoute from "./service/ProtectedRoute.jsx";
 import Login from "./pages/auth/Login.jsx";
 import Register from "./pages/auth/Register.jsx";
 import ForgotPassword from "./pages/auth/ForgotPassword.jsx";
-import Scripts from "./pages/dash/Scripts.jsx";
-import Settings from "./pages/dash/Settings.jsx";
-import Help from "./pages/dash/Help.jsx";
+import ManageCourses from "./pages/dash/courses/ManageCourses.jsx";
+import AccessControl from "./pages/dash/accessControl/AccessControl.jsx";
+import Repository from "./pages/dash/repository/Repository.jsx";
+import SemesterRepo from "./pages/dash/repository/SemesterRepo.jsx";
+import CourseRepository from "./pages/dash/repository/CourseRepository.jsx";
+import LectureCourses from "./pages/dash/LectureCourses/LectureCourses.jsx";
+import Uploads from "./pages/dash/uploads/Uploads.jsx";
 
 
 const AppRoutes = () => {
@@ -22,29 +26,56 @@ const AppRoutes = () => {
             <Route path="/*" element={<NotFound/>} />
 
 
-            {/*<Route path="/dashboard" element={<Dashboard/>} />*/}
-
-
             <Route path="/dashboard" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
+                <ProtectedRoute allowedRoles={['lecture','hod']}>
                     <Dashboard />
                 </ProtectedRoute>
             } />
-            <Route path="/scripts" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
-                    <Scripts />
+
+            <Route path="/access-control" element={
+                <ProtectedRoute allowedRoles={['lecture', 'hod']}>
+                    <AccessControl />
                 </ProtectedRoute>
             } />
-            <Route path="/settings" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
-                    <Settings />
+
+
+            <Route path="/repositories" element={
+                <ProtectedRoute allowedRoles={['hod']}>
+                    <Repository />
                 </ProtectedRoute>
             } />
-            <Route path="/help" element={
-                <ProtectedRoute allowedRoles={['Teacher','Admin']}>
-                    <Help />
+            <Route path="/repositories/semester-repo" element={
+                <ProtectedRoute allowedRoles={['hod']}>
+                    <SemesterRepo />
                 </ProtectedRoute>
             } />
+            <Route path="/repositories/course-repository" element={
+                <ProtectedRoute allowedRoles={['hod']}>
+                    <CourseRepository />
+                </ProtectedRoute>
+            } />
+
+
+
+            <Route path="/uploads" element={
+                <ProtectedRoute allowedRoles={['lecture', 'hod']}>
+                    <Uploads />
+                </ProtectedRoute>
+            } />
+
+            <Route path="/courses" element={
+                <ProtectedRoute allowedRoles={['lecture','hod']}>
+                    <ManageCourses />
+                </ProtectedRoute>
+            } />
+
+            <Route path="/lecture-courses" element={
+                <ProtectedRoute allowedRoles={['lecture','hod']}>
+                    <LectureCourses />
+                </ProtectedRoute>
+            } />
+
+
 
         </Routes>
     );

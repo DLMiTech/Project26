@@ -1,5 +1,5 @@
 import React from 'react';
-import AuthVerify from "./service/AuthVerify.jsx";
+import AuthVerify from "../service/AuthVerify.jsx";
 
 const NotFound = () => {
     const user = AuthVerify.decodeToken();

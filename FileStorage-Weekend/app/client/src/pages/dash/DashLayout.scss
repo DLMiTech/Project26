@@ -10,7 +10,7 @@
 /* SIDEBAR */
 .sidebar {
   width: 280px;
-  background: var(--white-color);
+  background: #caf0f8;
   border-right: 1px solid #eee;
   transition: 0.3s ease;
   z-index: 1000;
@@ -114,7 +114,7 @@
 /* NAVBAR */
 .top-navbar {
   height: 80px;
-  background: white;
+  background: linear-gradient(135deg, #0ab39c, #405189);
   border-radius: .5rem;
   padding: 0 1rem;
   display: flex;
@@ -133,7 +133,7 @@
     height: 50px;
     border: var(--border-color);
     border-radius: 45px;
-    background: #f4f4f4;
+    background: #0096c7;
     display: none;
     flex-shrink: 0;
     i{
@@ -144,7 +144,7 @@
   .search-box {
     width: 320px;
     height: 50px;
-    background: var(--background-color);
+    background: #caf0f8;
     border-radius: .5rem;
     padding: 0 18px;
     display: flex;
@@ -174,17 +174,19 @@
       border-radius: 50%;
       object-fit: cover;
       flex-shrink: 0;
+      border: 3px solid var(--white-color);
     }
 
     h6 {
       margin: 0;
       font-size: 14px;
+      color: var(--white-color);
     }
 
     p {
       margin: 0;
       font-size: 12px;
-      color: #777;
+      color: #d5d5d5;
     }
   }
 }
@@ -192,7 +194,7 @@
 /* BODY */
 .dashboard-body {
   margin-top: .5rem;
-  background: white;
+  background: #caf0f8;
   border-radius: .5rem;
   padding: 1rem;
   min-height: calc(100vh - 120px);

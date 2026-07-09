@@ -4,6 +4,7 @@ import compassLogo from '../../assets/logo/compass-logo.png'
 import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import {toast} from "react-toastify";
+import AuthRequest from "../../request/auth.jsx";
 
 export default function Register() {
     const [step, setStep] = useState('register');
@@ -31,30 +32,28 @@ export default function Register() {
             registerPassword: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitRegister = (e) => {
+    const handleSubmitRegister = async (e) => {
         e.preventDefault();
         if (!validate01()) return;
         setLoading(true);
         try {
-            //Call API
-            const res = {
-                status: 200,
-                message: "Account created successfully, please verify your email.",
-                data: {
-                    id: 1,
-                    email: "bob@gmail.com"
-                }
+            const payload = {
+                ...formData01
             }
-            if (res?.status === 200) {
+
+            const res = await AuthRequest.register(payload);
+
+            if (res?.status === 201) {
                 toast.success(res?.message);
                 setUser(res.data);
                 setStep('verification');
             }else {
                 toast.error(res?.message);
             }
-        }catch(err) {
+        } catch (err) {
             console.log(err);
-        }finally {
+            toast.error(err.message);
+        } finally {
             setLoading(false);
         }
     }
@@ -74,27 +73,31 @@ export default function Register() {
             verifyAccount: true,
             [e.target.name]: e.target.value});
     }
-    const handleSubmitVerifyAccount = (e) => {
+    const handleSubmitVerifyAccount = async (e) => {
         e.preventDefault();
         if (!validate02()) return;
         setLoading(true);
         try {
             //Call API
-            const res = {
-                status: 200,
-                message: "Verification successfully, Welcome",
-                data: {},
+            const payload = {
+                email: formData02.email,
+                otp: formData02.code,
             }
+
+            const res = await AuthRequest.verify_otp(payload);
+
             if (res?.status === 200) {
                 toast.success(res?.message);
                 setUser({});
+                AuthVerify.saveToken(res?.token);
                 navigate('/dashboard')
             }else {
                 toast.error(res?.message);
             }
-        }catch(err) {
+        } catch (err) {
             console.log(err);
-        }finally {
+            toast.error(err.message);
+        } finally {
             setLoading(false);
         }
     }
