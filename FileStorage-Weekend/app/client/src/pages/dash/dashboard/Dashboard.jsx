@@ -441,7 +441,7 @@ const Dashboard = () => {
                                     { icon: 'bi-folder-plus', label: 'Create Repository', color: '#8b5cf6', href: '/repository' },
                                     { icon: 'bi-shield-check', label: 'Access Control', color: '#22c55e', href: '/access-control' },
                                     { icon: 'bi-cloud-upload', label: 'View Uploads', color: '#f59e0b', href: '/uploads' },
-                                    { icon: 'bi-people', label: 'Manage Users', color: '#ec4899', href: '/users' }
+                                    // { icon: 'bi-people', label: 'Manage Users', color: '#ec4899', href: '/users' }
                                 ].map((action, idx) => (
                                     <div key={idx} className="col-6 col-md-4 col-lg-2">
                                         <a href={action.href} className="card border-0 text-center text-decoration-none p-3 h-100"

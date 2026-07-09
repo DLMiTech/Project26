@@ -69,6 +69,12 @@
     &.active {
       border-left: 10px solid var(--secondary-color);
       background: #f3f3f3;
+      background: linear-gradient(135deg, #0ab39c, #405189);
+      color: var(--white-color);
+
+      i{
+        color: var(--white-color);
+      }
     }
   }
 
