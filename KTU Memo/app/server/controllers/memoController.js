@@ -1,4 +1,5 @@
 const Memo = require('../models/memoModel');
+const { pool } = require('../config/db');
 const User = require('../models/userModel');
 const MemoHistory = require('../models/memoHistoryModel');
 const Notification = require('../models/notificationModel');
@@ -63,7 +64,10 @@ const getMemoById = async (req, res) => {
     if (memo.sender_id !== req.user.id && memo.recipient_id !== req.user.id && req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Access denied' });
     }
-    const attachments = []; // fetch separately if needed
+    //const attachments = []; // fetch separately if needed
+      const attachments = await pool.execute(
+          'SELECT * FROM memo_attachment WHERE memo_id = 6'
+      );
     const history = await MemoHistory.findByMemo(req.params.id);
     res.json({ memo, attachments, history });
   } catch (error) {

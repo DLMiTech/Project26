@@ -4,7 +4,9 @@ const joinDepartment = async (req, res) => {
   try {
     const { user_id, department_id } = req.body;
     if (!user_id || !department_id) return res.status(400).json({ message: 'User ID and Department ID are required' });
+      console.log("Hello")
     const joinId = await UserDepartment.join(user_id, department_id);
+      console.log(joinId);
     res.status(201).json({ message: 'User joined department successfully', joinId });
   } catch (error) {
     if (error.code === 'ER_DUP_ENTRY') return res.status(400).json({ message: 'User already in this department' });

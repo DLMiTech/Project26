@@ -1,0 +1,53 @@
+const express = require('express');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const path = require('path');
+const { initDB } = require('./config/db');
+const authRouter = require('./routes/authRouter');
+const memoRoutes = require('./routes');
+require('dotenv').config();
+
+const app = express();
+
+// CORS - Allow your frontend origin
+app.use(cors({
+    origin: 'http://localhost:5173',  // Your Vite frontend URL
+    credentials: true,                // Allow cookies if needed
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
+
+// Delay all requests by 1 second
+// app.use((req, res, next) => {
+//     setTimeout(next, 1000);
+// });
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Routes
+app.use('/api/auth', authRouter);
+app.use('/api', memoRoutes);
+
+// Health check
+app.get('/', (req, res) => {
+    res.json({ message: 'Auth API is running' });
+});
+
+// Error handler
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: 'Something went wrong!' });
+});
+
+const PORT = process.env.PORT || 3001;
+
+// Start server after DB init
+initDB().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+});

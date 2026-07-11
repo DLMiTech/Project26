@@ -1,0 +1,19 @@
+
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS users;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- Auth / Users table
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone VARCHAR(15) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('lecture', 'hod', 'dean', 'admin') NOT NULL DEFAULT 'lecture',
+    is_verified BOOLEAN DEFAULT FALSE,
+    otp VARCHAR(10),
+    otp_expires_at DATETIME,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
