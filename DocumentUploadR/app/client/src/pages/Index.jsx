@@ -93,7 +93,7 @@ const Index = () => {
                                                 <i className="bi bi-folder2-open fs-3"></i>
                                             </div>
                                             <div>
-                                                <h5 className="fw-bold mb-0">Course Repository</h5>
+                                                <h5 className="fw-bold mb-0">Exams Repository</h5>
                                                 <small className="opacity-75">2025 / 1st Semester</small>
                                             </div>
                                         </div>

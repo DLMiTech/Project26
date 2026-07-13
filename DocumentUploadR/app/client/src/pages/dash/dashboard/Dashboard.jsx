@@ -151,7 +151,7 @@ const Dashboard = () => {
         return (
             <DashLayout>
                 <section className="dashboard-body">
-                    {/* Welcome Header */}
+                    {/* Welcome, Header */}
                     <div className="card border-0 shadow-sm mb-4" style={{
                         background: 'linear-gradient(135deg, #2563eb, #0ea5e9)',
                         color: '#fff'

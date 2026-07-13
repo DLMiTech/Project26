@@ -10,25 +10,25 @@ import {toast} from "react-toastify";
 
 const menuItems = [
     {
-        icon: "ri-dashboard-line",
+        icon: "ri-dashboard-fill",
         label: "Dashboard",
         to: "/dashboard",
         roles: ['lecture','hod'],
     },
     {
-        icon: "ri-folder-2-line",
+        icon: "ri-git-repository-private-fill",
         label: "Access Control",
         to: "/access-control",
         roles: ['lecture', 'hod'],
     },
     {
-        icon: "ri-folder-2-line",
+        icon: "ri-folder-2-fill",
         label: "Repositories",
         to: "/repositories",
         roles: ['hod'],
     },
     {
-        icon: "ri-folder-2-line",
+        icon: "ri-cloud-fill",
         label: "Uploads",
         to: "/uploads",
         roles: ['lecture', 'hod'],
@@ -38,13 +38,13 @@ const menuItems = [
 
 const generalItems = [
     {
-        icon: "ri-folder-2-line",
+        icon: "ri-anticlockwise-fill",
         label: "Courses",
         to: "/courses",
         roles: ['lecture','hod'],
     },
     {
-        icon: "ri-folder-2-line",
+        icon: "ri-folder-user-fill",
         label: "Lecture Courses",
         to: "/lecture-courses",
         roles: ['lecture','hod'],
